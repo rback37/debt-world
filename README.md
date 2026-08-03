@@ -1,11 +1,17 @@
 # Debt World · 上岸星球
 
-![Debt World public beta](https://www.debtworld.org/og-beta.png)
-
 > A shared, walkable world for honest debt journeys.  
 > 一个会随着真实匿名数据不断生长的债务世界。
 
-[**Enter the public beta**](https://www.debtworld.org/) · [English](https://www.debtworld.org/en) · [Safety & privacy](https://www.debtworld.org/en/safety) · [中文安全说明](https://www.debtworld.org/safety)
+## Walk the world in 23 seconds · 23 秒看懂上岸星球
+
+![Debt World 23-second walkthrough](./debt-world-walkthrough.gif)
+
+> Actual product capture. Every visible walker uses system demo data. No real user debt, income, account identity, or private AI conversation is shown.
+>
+> 真实产品画面。所有可见角色均为系统演示数据，不展示真实用户的债务、收入、账户身份或私人 AI 对话。
+
+[**Enter the public beta**](https://www.debtworld.org/en?src=github) · [进入公开测试](https://www.debtworld.org/?src=github) · [Safety & privacy](https://www.debtworld.org/en/safety) · [中文安全说明](https://www.debtworld.org/safety)
 
 ## Why it exists
 
