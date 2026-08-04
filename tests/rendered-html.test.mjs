@@ -185,6 +185,14 @@ test("source includes real-date, multi-debt, voice, country currency, keyboard i
   assert.match(source, /SharedWalker/);
   assert.match(source, /mobile-planner-sheet/);
   assert.match(source, /真实共享角色/);
+  assert.match(source, /const SYSTEM_DEMO_COUNT = 30/);
+  assert.match(source, /source: "system_demo"/);
+  assert.match(source, /SYSTEM DEMO · FICTIONAL COMPOSITE/);
+  assert.match(source, /不计入上方真实统计/);
+  assert.match(source, /worldExpansionTier/);
+  assert.match(source, /world-expansion-\$\{worldExpansionTier\}/);
+  const demoRoster = source.match(/const demoNpcSeeds: DemoNpcSeed\[\] = \[[\s\S]*?\n\];/)?.[0] ?? "";
+  assert.equal((demoRoster.match(/\{ flag:/g) ?? []).length, 30);
   assert.doesNotMatch(source, /value\s*>=\s*1_000_000|toFixed\(/);
 
   const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
@@ -198,6 +206,9 @@ test("source includes real-date, multi-debt, voice, country currency, keyboard i
   assert.match(styles, /light-arrival/);
   assert.match(styles, /real-story-tag/);
   assert.match(styles, /real-light-milestones/);
+  assert.match(styles, /\.world-canvas\.world-expansion-2/);
+  assert.match(styles, /\.demo-npc\.npc-near \.npc-tag/);
+  assert.match(styles, /\.demo-world-note/);
   const communitySource = await readFile(new URL("../app/CommunityPanel.tsx", import.meta.url), "utf8");
   assert.match(communitySource, /story-light-burst/);
   assert.match(communitySource, /光已送达 \+1/);
@@ -208,6 +219,8 @@ test("source includes real-date, multi-debt, voice, country currency, keyboard i
   const communityRoute = await readFile(new URL("../app/api/community/route.ts", import.meta.url), "utf8");
   assert.match(communityRoute, /MIN_PROFILE_GROUP\s*=\s*5/);
   assert.match(communityRoute, /profileVaults\.size\s*>=\s*MIN_AGGREGATE_SAMPLE/);
+  assert.match(communityRoute, /SELECT COUNT\(\*\) FROM vaults/);
+  assert.doesNotMatch(communityRoute, /system_demo|demoNpcSeeds|npcData/);
   const adminSource = await readFile(new URL("../app/AdminCommunityPanel.tsx", import.meta.url), "utf8");
   assert.match(adminSource, /真实世界安全审核台/);
   assert.match(adminSource, /approve/);

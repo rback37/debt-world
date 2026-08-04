@@ -150,18 +150,65 @@ const storyLooks = [
   { color: "#b9a7db", skin: "#ad6c4d", hair: "#2b1b19" },
 ];
 
-const npcData: Array<{
-  id: number; x: number; y: number; flag: string; amount: number; currency: string;
+type DemoNpc = {
+  id: number; x: number; y: number; source: "system_demo"; flag: string; amount: number; currency: string;
   monthly: number; income: number; expenses: number; repaid: number; burden: number;
   capacity: number; name: string; zh: string; en: string; color: string; skin: string;
   hair: string; lights: number; debts: NpcDebtPart[];
-}> = [
-  { id: 1, x: 18, y: 29, flag: "🇺🇸", amount: 48_700, currency: "USD", monthly: 620, income: 3_450, expenses: 2_180, repaid: 34, burden: 18, capacity: 19, name: "Maya_27", zh: "学贷让我觉得人生一直没有开始。今天我把自动还款提高了 3%。", en: "Student debt made life feel paused. Today I raised autopay by 3%.", color: "#db7959", skin: "#a96547", hair: "#2b1b19", lights: 4, debts: [{ kind: "education", amount: 38_100, monthly: 470 }, { kind: "card", amount: 10_600, monthly: 150 }] },
-  { id: 2, x: 73, y: 23, flag: "🇮🇳", amount: 920_000, currency: "INR", monthly: 24_000, income: 58_500, expenses: 28_500, repaid: 22, burden: 41, capacity: 10, name: "Asha", zh: "家人的医疗债务很重，但我已经不再躲着亲友的消息。", en: "Family medical debt is heavy, but I no longer hide from messages.", color: "#7ab0c6", skin: "#bd7952", hair: "#1f1716", lights: 12, debts: [{ kind: "medical", amount: 650_000, monthly: 17_000 }, { kind: "personal", amount: 270_000, monthly: 7_000 }] },
-  { id: 3, x: 83, y: 68, flag: "🇧🇷", amount: 72_000, currency: "BRL", monthly: 2_100, income: 7_200, expenses: 3_100, repaid: 16, burden: 29, capacity: 28, name: "Sol", zh: "小店停业后欠下信用卡。我刚完成第一次协商。", en: "My shop closed and card debt followed. I just finished my first negotiation.", color: "#d7ef5b", skin: "#8f5239", hair: "#36231d", lights: 58, debts: [{ kind: "business", amount: 42_000, monthly: 1_200 }, { kind: "card", amount: 30_000, monthly: 900 }] },
-  { id: 4, x: 34, y: 76, flag: "🇰🇪", amount: 486_000, currency: "KES", monthly: 18_000, income: 42_000, expenses: 21_200, repaid: 29, burden: 43, capacity: 7, name: "Nia", zh: "金额换成美元不大，但相对收入很重。我每天只记三件事。", en: "It looks small in dollars, but not against my income. I track only three things.", color: "#c68c67", skin: "#70402f", hair: "#171313", lights: 27, debts: [{ kind: "personal", amount: 310_000, monthly: 11_000 }, { kind: "informal", amount: 176_000, monthly: 7_000 }] },
-  { id: 5, x: 57, y: 47, flag: "🇩🇪", amount: 31_400, currency: "EUR", monthly: 740, income: 4_400, expenses: 2_550, repaid: 47, burden: 17, capacity: 25, name: "North Rain", zh: "离婚留下的共同债务不是我的人格，只是一段需要走完的路。", en: "Divorce debt is not my character. It is a stretch of road to finish.", color: "#b9a7db", skin: "#e2b18e", hair: "#7a4d35", lights: 108, debts: [{ kind: "personal", amount: 20_200, monthly: 480 }, { kind: "card", amount: 11_200, monthly: 260 }] },
+};
+
+type DemoNpcSeed = Omit<DemoNpc, "id" | "x" | "y" | "source" | "color" | "skin" | "hair">;
+
+const SYSTEM_DEMO_COUNT = 30;
+const demoNpcSpots = Array.from({ length: SYSTEM_DEMO_COUNT }, (_, index) => ({
+  x: 8 + (index % 6) * 17,
+  y: 14 + Math.floor(index / 6) * 18 + (index % 2 === 0 ? 0 : 2),
+}));
+
+// Fictional composite cases for explaining the product and testing world density.
+// They never become accounts, real stories, population, conversion, or debt statistics.
+const demoNpcSeeds: DemoNpcSeed[] = [
+  { flag: "🇺🇸", amount: 48_700, currency: "USD", monthly: 620, income: 3_450, expenses: 2_180, repaid: 34, burden: 18, capacity: 19, name: "Maya_27", zh: "学贷让我觉得人生一直没有开始。今天我把自动还款提高了 3%。", en: "Student debt made life feel paused. Today I raised autopay by 3%.", lights: 4, debts: [{ kind: "education", amount: 38_100, monthly: 470 }, { kind: "card", amount: 10_600, monthly: 150 }] },
+  { flag: "🇮🇳", amount: 920_000, currency: "INR", monthly: 24_000, income: 58_500, expenses: 28_500, repaid: 22, burden: 41, capacity: 10, name: "Asha", zh: "家人的医疗债务很重，但我已经不再躲着亲友的消息。", en: "Family medical debt is heavy, but I no longer hide from messages.", lights: 12, debts: [{ kind: "medical", amount: 650_000, monthly: 17_000 }, { kind: "personal", amount: 270_000, monthly: 7_000 }] },
+  { flag: "🇧🇷", amount: 72_000, currency: "BRL", monthly: 2_100, income: 7_200, expenses: 3_100, repaid: 16, burden: 29, capacity: 28, name: "Sol", zh: "小店停业后欠下信用卡。我刚完成第一次协商。", en: "My shop closed and card debt followed. I just finished my first negotiation.", lights: 58, debts: [{ kind: "business", amount: 42_000, monthly: 1_200 }, { kind: "card", amount: 30_000, monthly: 900 }] },
+  { flag: "🇰🇪", amount: 486_000, currency: "KES", monthly: 18_000, income: 42_000, expenses: 21_200, repaid: 29, burden: 43, capacity: 7, name: "Nia", zh: "金额换成美元不大，但相对收入很重。我每天只记三件事。", en: "It looks small in dollars, but not against my income. I track only three things.", lights: 27, debts: [{ kind: "personal", amount: 310_000, monthly: 11_000 }, { kind: "informal", amount: 176_000, monthly: 7_000 }] },
+  { flag: "🇩🇪", amount: 31_400, currency: "EUR", monthly: 740, income: 4_400, expenses: 2_550, repaid: 47, burden: 17, capacity: 25, name: "North Rain", zh: "离婚留下的共同债务不是我的人格，只是一段需要走完的路。", en: "Divorce debt is not my character. It is a stretch of road to finish.", lights: 108, debts: [{ kind: "personal", amount: 20_200, monthly: 480 }, { kind: "card", amount: 11_200, monthly: 260 }] },
+  { flag: "🇯🇵", amount: 3_800_000, currency: "JPY", monthly: 95_000, income: 410_000, expenses: 240_000, repaid: 21, burden: 23, capacity: 18, name: "Haru Steps", zh: "照顾家人时收入下降，我先把车贷和生活借款分开排期。", en: "Income fell while I cared for family, so I separated the vehicle and personal-loan timelines.", lights: 8, debts: [{ kind: "car", amount: 2_600_000, monthly: 65_000 }, { kind: "personal", amount: 1_200_000, monthly: 30_000 }] },
+  { flag: "🇰🇷", amount: 58_000_000, currency: "KRW", monthly: 1_250_000, income: 4_200_000, expenses: 2_350_000, repaid: 12, burden: 30, capacity: 14, name: "Blue Door", zh: "换工作后住房押金借款变得吃力，我在重新建立三个月缓冲。", en: "A job change made my housing-deposit loan harder, so I am rebuilding a three-month buffer.", lights: 19, debts: [{ kind: "personal", amount: 48_000_000, monthly: 1_000_000 }, { kind: "card", amount: 10_000_000, monthly: 250_000 }] },
+  { flag: "🇵🇭", amount: 410_000, currency: "PHP", monthly: 16_000, income: 58_000, expenses: 31_000, repaid: 18, burden: 28, capacity: 19, name: "Isla Route", zh: "异地工作产生了安置费用，我正在核对每笔亲友借款的约定。", en: "Relocating for work created setup costs; I am documenting every family-loan agreement.", lights: 6, debts: [{ kind: "personal", amount: 280_000, monthly: 11_000 }, { kind: "informal", amount: 130_000, monthly: 5_000 }] },
+  { flag: "🇲🇽", amount: 185_000, currency: "MXN", monthly: 7_600, income: 28_000, expenses: 15_500, repaid: 25, burden: 27, capacity: 18, name: "Luz Clara", zh: "一场牙科手术叠加信用卡，我把最低还款和额外还款分开记录。", en: "Dental surgery overlapped with card debt, so I track minimums and extra payments separately.", lights: 31, debts: [{ kind: "medical", amount: 120_000, monthly: 5_000 }, { kind: "card", amount: 65_000, monthly: 2_600 }] },
+  { flag: "🇬🇧", amount: 21_800, currency: "GBP", monthly: 560, income: 2_450, expenses: 1_620, repaid: 38, burden: 23, capacity: 11, name: "Quiet North", zh: "失业期留下房租欠款和信用卡账单，重新入职后先恢复自动扣款。", en: "Redundancy left rent arrears and card bills; after returning to work I restored autopay first.", lights: 44, debts: [{ kind: "personal", amount: 14_000, monthly: 360 }, { kind: "card", amount: 7_800, monthly: 200 }] },
+  { flag: "🇨🇦", amount: 46_200, currency: "CAD", monthly: 730, income: 4_100, expenses: 2_450, repaid: 31, burden: 18, capacity: 22, name: "Maple Dawn", zh: "毕业后职业起步较慢，我不再只看总额，而是看每月可执行动作。", en: "My career started slowly after graduation; I now focus on monthly actions, not only the total.", lights: 15, debts: [{ kind: "education", amount: 35_000, monthly: 540 }, { kind: "card", amount: 11_200, monthly: 190 }] },
+  { flag: "🇦🇺", amount: 92_000, currency: "AUD", monthly: 1_350, income: 6_100, expenses: 3_700, repaid: 27, burden: 22, capacity: 17, name: "After Rain", zh: "暴风雨后的房屋维修超出保险范围，我在比较提前还款和应急金。", en: "Storm repairs exceeded insurance cover, so I am balancing extra payments against an emergency fund.", lights: 52, debts: [{ kind: "personal", amount: 52_000, monthly: 750 }, { kind: "mortgage", amount: 40_000, monthly: 600 }] },
+  { flag: "🇫🇷", amount: 27_600, currency: "EUR", monthly: 920, income: 3_800, expenses: 2_100, repaid: 42, burden: 24, capacity: 21, name: "Atelier 6", zh: "自由职业税款集中到来，我开始按项目先留税再安排信用卡。", en: "Freelance taxes landed together, so I now reserve tax per project before scheduling card payments.", lights: 64, debts: [{ kind: "other", amount: 18_000, monthly: 650 }, { kind: "card", amount: 9_600, monthly: 270 }] },
+  { flag: "🇪🇸", amount: 63_000, currency: "EUR", monthly: 1_450, income: 4_300, expenses: 2_350, repaid: 19, burden: 34, capacity: 12, name: "Mar Abierto", zh: "淡季让餐饮生意现金流断档，我在和债权方重新谈分期。", en: "A weak season broke my hospitality cashflow, and I am renegotiating the installment schedule.", lights: 22, debts: [{ kind: "business", amount: 45_000, monthly: 1_000 }, { kind: "card", amount: 18_000, monthly: 450 }] },
+  { flag: "🇮🇹", amount: 79_000, currency: "EUR", monthly: 1_350, income: 4_700, expenses: 2_650, repaid: 14, burden: 29, capacity: 15, name: "Olive Line", zh: "为家庭小店担保后形成两类债务，我正在把家庭与生意账分开。", en: "Guaranteeing the family shop created two debt paths; I am separating household and business books.", lights: 10, debts: [{ kind: "business", amount: 55_000, monthly: 950 }, { kind: "informal", amount: 24_000, monthly: 400 }] },
+  { flag: "🇹🇷", amount: 690_000, currency: "TRY", monthly: 31_000, income: 89_000, expenses: 44_000, repaid: 11, burden: 35, capacity: 16, name: "Ada Plan", zh: "多笔分期一起涨价，我先停止新增消费，再按利率重新排序。", en: "Several installments rose together; I stopped new purchases and reordered payments by rate.", lights: 3, debts: [{ kind: "card", amount: 430_000, monthly: 20_000 }, { kind: "bnpl", amount: 260_000, monthly: 11_000 }] },
+  { flag: "🇪🇬", amount: 510_000, currency: "EGP", monthly: 18_000, income: 55_000, expenses: 30_000, repaid: 23, burden: 33, capacity: 13, name: "Nile Morning", zh: "手术恢复期减少了工作时长，我把医疗账单和个人借款拆开处理。", en: "Recovery reduced my working hours, so I separated medical bills from the personal loan.", lights: 17, debts: [{ kind: "medical", amount: 340_000, monthly: 12_000 }, { kind: "personal", amount: 170_000, monthly: 6_000 }] },
+  { flag: "🇳🇬", amount: 4_800_000, currency: "NGN", monthly: 175_000, income: 620_000, expenses: 335_000, repaid: 26, burden: 28, capacity: 18, name: "New Skill", zh: "职业培训费用没有立刻换来高收入，我在用周预算保护还款日。", en: "Training did not raise income immediately, so a weekly budget now protects each due date.", lights: 29, debts: [{ kind: "education", amount: 3_200_000, monthly: 115_000 }, { kind: "personal", amount: 1_600_000, monthly: 60_000 }] },
+  { flag: "🇿🇦", amount: 285_000, currency: "ZAR", monthly: 8_900, income: 32_000, expenses: 18_500, repaid: 20, burden: 28, capacity: 14, name: "Jozi Mile", zh: "工作车辆维修影响了收入，我把车辆恢复运营作为第一阶段目标。", en: "Repairs to my work vehicle hit income, so restoring it to service is the first-stage goal.", lights: 36, debts: [{ kind: "business", amount: 180_000, monthly: 5_400 }, { kind: "car", amount: 105_000, monthly: 3_500 }] },
+  { flag: "🇦🇷", amount: 19_000_000, currency: "ARS", monthly: 900_000, income: 3_200_000, expenses: 1_650_000, repaid: 17, burden: 28, capacity: 20, name: "Sur Abierto", zh: "收入每月波动很大，我用比例而不是固定金额安排额外还款。", en: "Income changes widely each month, so I allocate extra payments by percentage instead of a fixed sum.", lights: 13, debts: [{ kind: "personal", amount: 12_000_000, monthly: 570_000 }, { kind: "card", amount: 7_000_000, monthly: 330_000 }] },
+  { flag: "🇨🇱", amount: 84_000_000, currency: "CLP", monthly: 710_000, income: 2_900_000, expenses: 1_550_000, repaid: 36, burden: 24, capacity: 22, name: "Cordillera", zh: "房贷利率重设后月供上升，我先核对合同，再准备协商材料。", en: "A mortgage-rate reset raised payments; I am checking the contract before preparing negotiation documents.", lights: 71, debts: [{ kind: "mortgage", amount: 70_000_000, monthly: 580_000 }, { kind: "personal", amount: 14_000_000, monthly: 130_000 }] },
+  { flag: "🇨🇴", amount: 68_000_000, currency: "COP", monthly: 1_900_000, income: 7_500_000, expenses: 4_100_000, repaid: 24, burden: 25, capacity: 20, name: "Café Lento", zh: "单亲家庭的紧急开销叠在一起，我只公开方法，不公开家人的信息。", en: "Emergency costs overlapped in a single-parent household; I share the method, never my family’s details.", lights: 25, debts: [{ kind: "card", amount: 42_000_000, monthly: 1_200_000 }, { kind: "informal", amount: 26_000_000, monthly: 700_000 }] },
+  { flag: "🇵🇪", amount: 48_000, currency: "PEN", monthly: 1_250, income: 4_800, expenses: 2_550, repaid: 33, burden: 26, capacity: 21, name: "Andes Note", zh: "照顾家人时借了几笔小额款，我正在逐一确认余额和还款日。", en: "Caregiving led to several small loans; I am confirming every balance and due date one by one.", lights: 47, debts: [{ kind: "informal", amount: 30_000, monthly: 750 }, { kind: "personal", amount: 18_000, monthly: 500 }] },
+  { flag: "🇮🇩", amount: 118_000_000, currency: "IDR", monthly: 3_600_000, income: 12_000_000, expenses: 6_500_000, repaid: 28, burden: 30, capacity: 16, name: "Pagi Ride", zh: "摩托车既是通勤工具也是收入工具，我优先保证它不逾期。", en: "My motorbike supports both commuting and income, so keeping that loan current comes first.", lights: 39, debts: [{ kind: "car", amount: 78_000_000, monthly: 2_400_000 }, { kind: "informal", amount: 40_000_000, monthly: 1_200_000 }] },
+  { flag: "🇹🇭", amount: 780_000, currency: "THB", monthly: 23_000, income: 82_000, expenses: 44_000, repaid: 30, burden: 28, capacity: 18, name: "Lotus Shift", zh: "旅游淡季拖慢了小生意，我按旺季和淡季做两套还款预算。", en: "Tourism’s low season slowed my business, so I use separate high- and low-season repayment budgets.", lights: 55, debts: [{ kind: "business", amount: 520_000, monthly: 15_000 }, { kind: "personal", amount: 260_000, monthly: 8_000 }] },
+  { flag: "🇻🇳", amount: 410_000_000, currency: "VND", monthly: 12_000_000, income: 38_000_000, expenses: 20_000_000, repaid: 15, burden: 32, capacity: 16, name: "River Desk", zh: "搬家押金和生活借款同时发生，我先建立清晰的到期日地图。", en: "A relocation deposit and personal loan arrived together; I began with a clear map of due dates.", lights: 9, debts: [{ kind: "personal", amount: 280_000_000, monthly: 8_000_000 }, { kind: "other", amount: 130_000_000, monthly: 4_000_000 }] },
+  { flag: "🇲🇾", amount: 58_000, currency: "MYR", monthly: 1_350, income: 5_800, expenses: 3_150, repaid: 41, burden: 23, capacity: 22, name: "Second Path", zh: "转行资格培训产生了学贷，我开始把加薪的一部分固定用于本金。", en: "Retraining created education debt; part of each pay increase now goes directly to principal.", lights: 82, debts: [{ kind: "education", amount: 40_000, monthly: 900 }, { kind: "card", amount: 18_000, monthly: 450 }] },
+  { flag: "🇸🇬", amount: 76_000, currency: "SGD", monthly: 1_550, income: 6_400, expenses: 3_800, repaid: 35, burden: 24, capacity: 16, name: "Harbour 8", zh: "照护假让收入短期减少，我先保护基本生活，再安排额外还款。", en: "Caregiving leave reduced income temporarily; essentials come first, then extra payments.", lights: 61, debts: [{ kind: "medical", amount: 48_000, monthly: 950 }, { kind: "personal", amount: 28_000, monthly: 600 }] },
+  { flag: "🇵🇰", amount: 3_600_000, currency: "PKR", monthly: 115_000, income: 410_000, expenses: 225_000, repaid: 22, burden: 28, capacity: 17, name: "Open Ledger", zh: "几笔家庭开销没有写清约定，我正在把口头承诺变成可追踪计划。", en: "Several family expenses lacked clear terms, so I am turning verbal promises into a trackable plan.", lights: 18, debts: [{ kind: "informal", amount: 2_200_000, monthly: 70_000 }, { kind: "personal", amount: 1_400_000, monthly: 45_000 }] },
+  { flag: "🇧🇩", amount: 2_800_000, currency: "BDT", monthly: 86_000, income: 310_000, expenses: 168_000, repaid: 27, burden: 28, capacity: 18, name: "Delta Skill", zh: "求职认证和搬迁成本叠加，我把每次真实更新当作下一步，而不是成绩。", en: "Work certification and relocation costs overlapped; each honest update is a next step, not a grade.", lights: 33, debts: [{ kind: "personal", amount: 1_800_000, monthly: 55_000 }, { kind: "education", amount: 1_000_000, monthly: 31_000 }] },
 ];
+
+const npcData: DemoNpc[] = demoNpcSeeds.map((npc, index) => ({
+  ...npc,
+  ...demoNpcSpots[index],
+  ...storyLooks[index % storyLooks.length],
+  id: index + 1,
+  source: "system_demo",
+}));
+
+if (npcData.length !== SYSTEM_DEMO_COUNT) throw new Error("System demo roster must contain exactly 30 characters.");
 
 function lightTier(count: number) {
   if (count >= 100) return 4;
@@ -410,7 +457,7 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
   const [luckyType, setLuckyType] = useState("bonus");
   const [paymentToolMessage, setPaymentToolMessage] = useState("");
   const [worldRulesOpen, setWorldRulesOpen] = useState(true);
-  const [worldZoom, setWorldZoom] = useState(0.78);
+  const [worldZoom, setWorldZoom] = useState(0.62);
   const [worldPan, setWorldPan] = useState({ x: 0, y: 0 });
   const [worldDragging, setWorldDragging] = useState(false);
   const [mobilePlannerOpen, setMobilePlannerOpen] = useState(false);
@@ -663,6 +710,10 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
   const cashflowTarget = urgentTarget ?? [...openDebts].sort((a, b) =>
     toDisplay(b.minimumPayment ?? b.monthly, b.currency) - toDisplay(a.minimumPayment ?? a.monthly, a.currency))[0] ?? null;
   const extraPaymentRoom = monthlyCashflow === null ? null : Math.max(0, monthlyCashflow);
+  const realSharedWalkerCount = sharedWalkers.filter((walker) => !walker.isMine).length;
+  const visibleWorldRoleCount = SYSTEM_DEMO_COUNT + realSharedWalkerCount + worldStories.length + 1;
+  const worldExpansionTier = visibleWorldRoleCount >= 70 ? 3 : visibleWorldRoleCount >= 30 ? 2 : visibleWorldRoleCount >= 12 ? 1 : 0;
+  const worldResetZoom = worldExpansionTier >= 3 ? 0.52 : worldExpansionTier >= 2 ? 0.62 : worldExpansionTier >= 1 ? 0.7 : 0.78;
   const nearNpc = npcData.find((npc) => Math.hypot(npc.x - position.x, npc.y - position.y) < 11);
   const nearWorldStory = worldStories
     .map((story) => ({ story, distance: Math.hypot(story.x - position.x, story.y - position.y) }))
@@ -688,7 +739,7 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
   const totalConfirmedPayments = debts.reduce((sum, debt) => sum + (debt.history?.length ?? debt.payments ?? 0), 0);
   const nearShore = overallProgress >= 80 && totalOriginalUsd >= 1_000 && totalConfirmedPayments >= 3;
 
-  const changeWorldZoom = (delta: number) => setWorldZoom((current) => Math.min(1.6, Math.max(0.55, Math.round((current + delta) * 100) / 100)));
+  const changeWorldZoom = (delta: number) => setWorldZoom((current) => Math.min(1.6, Math.max(0.42, Math.round((current + delta) * 100) / 100)));
   const beginWorldPan = (event: ReactPointerEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
     if (target.closest("button, a, input, textarea, select")) return;
@@ -1062,8 +1113,8 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
         : `You do not need to solve everything at once. You have moved ${debts.length} debts from your head onto a visible map. Pick one small action today: verify the nearest due date, collect one statement, or ask a trusted person to sit with you. If you may harm yourself or cannot stay safe, contact local emergency help or someone you trust now; debt can wait, safety cannot.`;
     } else if (worldIntent) {
       answer = locale === "zh"
-        ? "世界数据页目前只会显示明确标注的 5 个演示角色。真实故事至少达到 30 个审核样本后，才公布债务类型和还款方式的聚合；永远不公开“某个人欠得最多”的羞辱榜。打开顶部“真实世界”可以查看当前门槛。"
-        : "World Data currently shows only five clearly labeled demo characters. Real debt-type and repayment-method aggregates unlock after 30 reviewed stories. There is never a shaming leaderboard for an individual who owes the most. Open Real World in the top bar to see the threshold.";
+        ? "地图里有 30 个明确标注的系统演示角色，用于展示功能和测试世界扩张；它们不计入真实注册、真实故事或任何聚合统计。真实故事至少达到 30 个审核样本后，才公布债务类型和还款方式的聚合；永远不公开“某个人欠得最多”的羞辱榜。打开顶部“真实世界”可以查看当前门槛。"
+        : "The map includes 30 clearly labeled system demos for product explanation and world-expansion testing. They never count as registrations, real stories, or aggregate data. Real debt-type and repayment-method aggregates unlock after 30 reviewed stories. There is never a shaming leaderboard for an individual who owes the most.";
     } else {
       answer = locale === "zh"
         ? `我看到你的总负债约为 ${fullMoney(totalBalance, displayCurrency)}，固定月还约 ${fullMoney(totalMonthly, displayCurrency)}${largestDebt ? `，最大来源是${debtDisplayName(largestDebt, locale)}（${largestDebtShare}%）` : ""}。建议下一步：①核对最近一笔账单的最新本金；②确认本月基本生活开销已留出；③只为最紧迫的一笔写下一个可执行动作。你可以继续问我“先还哪笔”“提前还款前查什么”或“收到催收通知怎么办”。`
@@ -1298,8 +1349,9 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
 
         <div className="world-wrap">
           <div className="world-stage" aria-label={locale === "zh" ? "可移动、缩放和拖动的债务世界" : "Walkable, zoomable, pannable debt world"}>
-            <div className="world-growth-status"><b>◉ {locale === "zh" ? "共同大世界正在生长" : "THE SHARED WORLD IS GROWING"}</b><span>{worldPulse.population} {locale === "zh" ? "位行者" : "walkers"} · {worldPulse.recordedDebts} {locale === "zh" ? "笔债务" : "debts"} · {worldPulse.confirmedPayments} {locale === "zh" ? "次真实还款" : "confirmed payments"} · {worldPulse.countries} {locale === "zh" ? "个国家/地区" : "countries/regions"}</span></div>
-            <div className={`world-canvas ${worldDragging ? "is-dragging" : ""}`} style={{ transform: `translate(${worldPan.x}px, ${worldPan.y}px) scale(${worldZoom})` }} onPointerDown={beginWorldPan} onPointerMove={moveWorldPan} onPointerUp={endWorldPan} onPointerCancel={endWorldPan}>
+            <div className="world-growth-status"><b>◉ {locale === "zh" ? "共同大世界正在生长" : "THE SHARED WORLD IS GROWING"}</b><span>{worldPulse.population} {locale === "zh" ? "位真实行者" : "real walkers"} · {worldPulse.recordedDebts} {locale === "zh" ? "笔真实债务" : "real debts"} · {worldPulse.confirmedPayments} {locale === "zh" ? "次真实还款" : "confirmed payments"} · {worldPulse.countries} {locale === "zh" ? "个国家/地区" : "countries/regions"}</span></div>
+            <div className="demo-world-note" role="note"><b>◌ {SYSTEM_DEMO_COUNT} {locale === "zh" ? "个系统演示角色" : "SYSTEM DEMOS"}</b><span>{locale === "zh" ? "虚构组合案例 · 不计入上方真实统计" : "Fictional composites · excluded from real metrics"}</span><i>{locale === "zh" ? `地图扩张等级 ${worldExpansionTier}` : `Map expansion tier ${worldExpansionTier}`}</i></div>
+            <div className={`world-canvas world-expansion-${worldExpansionTier} ${worldDragging ? "is-dragging" : ""}`} style={{ transform: `translate(${worldPan.x}px, ${worldPan.y}px) scale(${worldZoom})` }} onPointerDown={beginWorldPan} onPointerMove={moveWorldPan} onPointerUp={endWorldPan} onPointerCancel={endWorldPan}>
             <div className="world-noise" /><div className="road road-a" /><div className="road road-b" /><div className="road road-c" />
             <div className={`district district-home growth-tier-${worldPulse.districts.find((item) => item.key === "mortgage")?.tier ?? 0}`}><span>⌂</span><strong>{locale === "zh" ? "住房山丘" : "HOUSING HILL"}</strong><small>{worldPulse.districts.find((item) => item.key === "mortgage")?.count ?? (locale === "zh" ? "成长中" : "GROWING")}</small></div>
             <div className={`district district-card growth-tier-${worldPulse.districts.find((item) => item.key === "card")?.tier ?? 0}`}><span>▤</span><strong>{locale === "zh" ? "循环信贷街" : "REVOLVING ROW"}</strong><small>{worldPulse.districts.find((item) => item.key === "card")?.count ?? (locale === "zh" ? "成长中" : "GROWING")}</small></div>
@@ -1314,9 +1366,9 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
               const lightCount = npc.lights + (sentNpcLights.includes(npc.id) ? 1 : 0);
               const tier = lightTier(lightCount);
               return (
-                <button key={npc.id} className={`npc ${nearNpc?.id === npc.id ? "npc-near" : ""} ${lightFeedbackNpc === npc.id ? "npc-light-burst" : ""}`} style={{ left: `${npc.x}%`, top: `${npc.y}%` }} onClick={() => setSelectedNpc(npc.id)}>
+                <button key={npc.id} className={`npc demo-npc ${nearNpc?.id === npc.id ? "npc-near" : ""} ${lightFeedbackNpc === npc.id ? "npc-light-burst" : ""}`} style={{ left: `${npc.x}%`, top: `${npc.y}%` }} onClick={() => setSelectedNpc(npc.id)}>
                   <span className="npc-tag">
-                    <span className="npc-tag-label">{locale === "zh" ? "总欠款" : "TOTAL DEBT"}</span>
+                    <span className="npc-tag-label">◌ {locale === "zh" ? "系统演示 · 总欠款" : "SYSTEM DEMO · TOTAL DEBT"}</span>
                     <strong>{money(toDisplay(npc.amount, npc.currency), displayCurrency)}</strong>
                     <b>{locale === "zh" ? "最大" : "TOP"} · {kindNames[primary.kind][locale]} {share}%</b>
                     <i className={leftover < 0 ? "negative" : ""}>{locale === "zh" ? "月余" : "LEFT"} {leftover >= 0 ? "+" : "−"}{money(Math.abs(toDisplay(leftover, npc.currency)), displayCurrency)}</i>
@@ -1390,7 +1442,7 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
 
             <div className="world-message"><span>“</span><p>{t.worldTruth}</p></div>
             </div>
-            <div className="world-zoom-controls" aria-label={locale === "zh" ? "地图缩放控制" : "Map zoom controls"}><button onClick={() => changeWorldZoom(-0.12)} aria-label={locale === "zh" ? "缩小地图" : "Zoom out"}>−</button><span>{Math.round(worldZoom * 100)}%</span><button onClick={() => changeWorldZoom(0.12)} aria-label={locale === "zh" ? "放大地图" : "Zoom in"}>＋</button><button onClick={() => { setWorldZoom(0.78); setWorldPan({ x: 0, y: 0 }); }}>{locale === "zh" ? "复位" : "Reset"}</button></div>
+            <div className="world-zoom-controls" aria-label={locale === "zh" ? "地图缩放控制" : "Map zoom controls"}><button onClick={() => changeWorldZoom(-0.12)} aria-label={locale === "zh" ? "缩小地图" : "Zoom out"}>−</button><span>{Math.round(worldZoom * 100)}%</span><button onClick={() => changeWorldZoom(0.12)} aria-label={locale === "zh" ? "放大地图" : "Zoom in"}>＋</button><button onClick={() => { setWorldZoom(worldResetZoom); setWorldPan({ x: 0, y: 0 }); }}>{locale === "zh" ? "复位" : "Reset"}</button></div>
             {lightFeedbackNpc && <div className="light-feedback-toast" role="status" aria-live="polite"><b>✦ +1</b><span>{locale === "zh" ? `光已送达 ${npcData.find((npc) => npc.id === lightFeedbackNpc)?.name ?? ""}` : `Light reached ${npcData.find((npc) => npc.id === lightFeedbackNpc)?.name ?? ""}`}</span></div>}
             {lightFeedbackStory && <div className="light-feedback-toast real-light-toast" role="status" aria-live="polite"><b>✦ +1</b><span>{locale === "zh" ? `真实的一道光已送达 ${worldStories.find((story) => story.id === lightFeedbackStory)?.anonymousName ?? ""}` : `A real light reached ${worldStories.find((story) => story.id === lightFeedbackStory)?.anonymousName ?? ""}`}</span></div>}
             <div className="mobile-controls" aria-label={locale === "zh" ? "移动控制" : "Movement controls"}><button onClick={() => move(0,-3,"up")}>↑</button><button onClick={() => move(-3,0,"left")}>←</button><button onClick={() => move(3,0,"right")}>→</button><button onClick={() => move(0,3,"down")}>↓</button></div>
@@ -1833,8 +1885,9 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
               <button className="modal-close" onClick={() => setSelectedNpc(null)}>×</button>
               <div className="person-detail-head npc-detail-head">
                 <div className="npc-portrait"><CharacterAvatar className="portrait-character" badge={npc.flag} color={npc.color} skin={npc.skin} hair={npc.hair}/></div>
-                <div><p className="detail-kicker">{npc.flag} {npc.name} · {locale === "zh" ? "匿名自报" : "ANONYMOUS SELF-REPORT"}</p><h2>≈ {fullMoney(convertedAmount, displayCurrency)}</h2>{npc.currency !== displayCurrency && <p className="original-money">{locale === "zh" ? "原币总额" : "Original total"}：{fullMoney(npc.amount, npc.currency)}</p>}</div>
+                <div><p className="detail-kicker">{npc.flag} {npc.name} · {locale === "zh" ? "系统演示 · 虚构组合案例" : "SYSTEM DEMO · FICTIONAL COMPOSITE"}</p><h2>≈ {fullMoney(convertedAmount, displayCurrency)}</h2>{npc.currency !== displayCurrency && <p className="original-money">{locale === "zh" ? "原币总额" : "Original total"}：{fullMoney(npc.amount, npc.currency)}</p>}</div>
               </div>
+              <p className="demo-data-notice">◌ {locale === "zh" ? "金额、收入、开销与故事均为虚构组合数据，只用于演示产品和测试地图扩张；它不是注册用户，不进入任何真实统计。" : "Amounts, income, costs, and stories are fictional composites for product explanation and map testing. This is not a registered user and never enters real metrics."}</p>
               <div className="npc-source-hero"><span>{locale === "zh" ? "最大欠款来源" : "LARGEST DEBT SOURCE"}</span><strong>{kindNames[primary.kind][locale]}</strong><em>{fullMoney(toDisplay(primary.amount, npc.currency), displayCurrency)} · {primaryShare}%</em></div>
               <blockquote>“{locale === "zh" ? npc.zh : npc.en}”</blockquote>
 
@@ -1858,9 +1911,9 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
                 </div>
               </section>
 
-              <div className="ability-meters npc-meters"><div><p><span>{locale === "zh" ? "本金偿还进度" : "Principal repaid"}</span><strong>{npc.repaid}%</strong></p><i><b style={{ width: `${npc.repaid}%` }}/></i></div><div><p><span>{locale === "zh" ? "月供占收入" : "Payments / income"}</span><strong>{npc.burden}%</strong></p><i className="burden"><b style={{ width: `${npc.burden}%` }}/></i></div><div><p><span>{locale === "zh" ? "月底余量占收入" : "Month-left / income"}</span><strong>{npc.capacity}%</strong></p><i className="capacity"><b style={{ width: `${npc.capacity}%` }}/></i></div><small>{locale === "zh" ? "金额、收入和开销均为匿名自报，并已换算为你的展示货币；这是理解压力的生活画像，不是信用评分。" : "Debt, income, and costs are anonymous self-reports converted to your display currency. This is a life-pressure profile, not a credit score."}</small></div>
+              <div className="ability-meters npc-meters"><div><p><span>{locale === "zh" ? "本金偿还进度" : "Principal repaid"}</span><strong>{npc.repaid}%</strong></p><i><b style={{ width: `${npc.repaid}%` }}/></i></div><div><p><span>{locale === "zh" ? "月供占收入" : "Payments / income"}</span><strong>{npc.burden}%</strong></p><i className="burden"><b style={{ width: `${npc.burden}%` }}/></i></div><div><p><span>{locale === "zh" ? "月底余量占收入" : "Month-left / income"}</span><strong>{npc.capacity}%</strong></p><i className="capacity"><b style={{ width: `${npc.capacity}%` }}/></i></div><small>{locale === "zh" ? "这些演示数字已换算为你的展示货币，用于理解压力画像和测试交互，不是信用评分，也不代表真实个人。" : "These demo values are converted to your display currency to explain the pressure profile and test interaction. They are not a credit score or a real person."}</small></div>
               <div className="npc-light-summary"><strong>✦ {lightCount}</strong><div><b>{locale === "zh" ? "脚下光效等级" : "GROUND LIGHT LEVEL"} {lightTier(lightCount)}</b><span>{locale === "zh" ? "这是演示人物的演示光点；你在本设备只能送一次。真实人物上线后将使用经过审核的社区鼓励总数。" : "These are demo lights on a demo person; this device can send once. Real people will use reviewed community encouragement totals."}</span></div></div>
-              <button className={`npc-light-button ${hasSentLight ? "light-sent" : ""}`} onClick={() => hasSentLight ? setSelectedNpc(null) : sendNpcLight(npc.id)}>{hasSentLight ? (locale === "zh" ? "✓ 光已送达，继续走" : "✓ Light sent — keep walking") : (locale === "zh" ? "送一点光 +1" : "Send a little light +1")} ✦</button>
+              <button className={`npc-light-button ${hasSentLight ? "light-sent" : ""}`} onClick={() => hasSentLight ? setSelectedNpc(null) : sendNpcLight(npc.id)}>{hasSentLight ? (locale === "zh" ? "✓ 演示光效已触发" : "✓ Demo light previewed") : (locale === "zh" ? "试演光效 +1" : "Preview light effect +1")} ✦</button>
             </section>
           </div>
         );

@@ -1373,6 +1373,61 @@ a { color: inherit; text-decoration: none; }
 .world-message { max-width: 330px; }
 .world-message p { font-size: 15px; }
 
+/* A larger canvas is unlocked by visible role count; the stage stays pannable like a map. */
+.world-canvas.world-expansion-1 { left: -34%; top: -34%; width: 168%; height: 168%; }
+.world-canvas.world-expansion-2 { left: -46%; top: -46%; width: 192%; height: 192%; }
+.world-canvas.world-expansion-3 { left: -61%; top: -61%; width: 222%; height: 222%; }
+.demo-world-note {
+  position: absolute;
+  z-index: 34;
+  top: 62px;
+  right: 14px;
+  width: min(268px, calc(100% - 28px));
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px dashed rgba(255,255,255,.42);
+  border-radius: 14px;
+  color: #fff;
+  background: rgba(29,42,38,.9);
+  box-shadow: 0 10px 28px rgba(23,32,29,.2);
+  backdrop-filter: blur(9px);
+  pointer-events: none;
+}
+.demo-world-note b { color: #ffd58c; font: 900 11px var(--font-mono); letter-spacing: .04em; }
+.demo-world-note span { color: rgba(255,255,255,.78); font-size: 11px; font-weight: 800; line-height: 1.4; }
+.demo-world-note i { color: var(--blue); font: 800 9px var(--font-mono); font-style: normal; }
+
+/* Demo labels stay quiet until inspected so a 30-person world remains readable. */
+.demo-npc .npc-tag {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(7px) scale(.94);
+  pointer-events: none;
+  transition: opacity .16s ease, visibility .16s ease, transform .16s ease, box-shadow .18s ease;
+}
+.demo-npc:hover .npc-tag,
+.demo-npc.npc-near .npc-tag {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-2px) scale(1);
+}
+.demo-npc .npc-tag { border-style: dashed; border-color: rgba(255,211,138,.48); }
+.demo-npc .npc-tag::before { background: linear-gradient(90deg,transparent,#ffd58c,var(--blue),transparent); }
+.demo-npc .npc-tag-label { color: #ffd58c; }
+.demo-npc small.npc-name { border-style: dashed; border-color: rgba(155,120,60,.34); background: rgba(255,248,232,.94); }
+.demo-data-notice {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 1px dashed #c89955;
+  border-radius: 13px;
+  color: #76552f;
+  background: #fff5de;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
 @media (max-width: 760px) {
   .npc .npc-tag { min-width: 174px; padding: 12px 13px; }
   .npc .npc-tag strong { font-size: 17px; }
@@ -1384,6 +1439,11 @@ a { color: inherit; text-decoration: none; }
   .district { width: 122px; height: 82px; }
   .district strong { font-size: 11px; }
   .world-growth-status span { font-size: 11px; }
+  .world-canvas.world-expansion-1 { left: -46%; top: -39%; width: 192%; height: 178%; }
+  .world-canvas.world-expansion-2 { left: -58%; top: -53%; width: 216%; height: 206%; }
+  .world-canvas.world-expansion-3 { left: -72%; top: -68%; width: 244%; height: 236%; }
+  .demo-world-note { top: 68px; right: 8px; width: 216px; padding: 8px 10px; }
+  .demo-world-note span { font-size: 10px; }
 }
 
 /* Shared registered roles: always visible, deliberately coarse, and distinct from reviewed stories. */
