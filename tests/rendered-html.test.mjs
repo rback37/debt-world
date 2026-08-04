@@ -191,6 +191,12 @@ test("source includes real-date, multi-debt, voice, country currency, keyboard i
   assert.match(source, /不计入上方真实统计/);
   assert.match(source, /worldExpansionTier/);
   assert.match(source, /world-expansion-\$\{worldExpansionTier\}/);
+  assert.match(source, /upcomingMissions/);
+  assert.match(source, /map-layer-switcher/);
+  assert.match(source, /map-mission/);
+  assert.match(source, /现实任务站/);
+  assert.match(source, /opening never marks paid/);
+  assert.match(source, /worldDayPhase/);
   const demoRoster = source.match(/const demoNpcSeeds: DemoNpcSeed\[\] = \[[\s\S]*?\n\];/)?.[0] ?? "";
   assert.equal((demoRoster.match(/\{ flag:/g) ?? []).length, 30);
   assert.doesNotMatch(source, /value\s*>=\s*1_000_000|toFixed\(/);
@@ -209,6 +215,11 @@ test("source includes real-date, multi-debt, voice, country currency, keyboard i
   assert.match(styles, /\.world-canvas\.world-expansion-2/);
   assert.match(styles, /\.demo-npc\.npc-near \.npc-tag/);
   assert.match(styles, /\.demo-world-note/);
+  assert.match(styles, /\.map-layer-switcher/);
+  assert.match(styles, /\.map-mission/);
+  assert.match(styles, /\.mission-dock/);
+  assert.match(styles, /\.biome-lake/);
+  assert.match(styles, /@keyframes mission-ring/);
   const communitySource = await readFile(new URL("../app/CommunityPanel.tsx", import.meta.url), "utf8");
   assert.match(communitySource, /story-light-burst/);
   assert.match(communitySource, /光已送达 \+1/);

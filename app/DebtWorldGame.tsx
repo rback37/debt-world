@@ -165,6 +165,13 @@ const demoNpcSpots = Array.from({ length: SYSTEM_DEMO_COUNT }, (_, index) => ({
   y: 14 + Math.floor(index / 6) * 18 + (index % 2 === 0 ? 0 : 2),
 }));
 
+const missionSpots = [
+  { x: 35, y: 31 },
+  { x: 66, y: 30 },
+  { x: 69, y: 72 },
+  { x: 31, y: 74 },
+];
+
 // Fictional composite cases for explaining the product and testing world density.
 // They never become accounts, real stories, population, conversion, or debt statistics.
 const demoNpcSeeds: DemoNpcSeed[] = [
@@ -460,6 +467,7 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
   const [worldZoom, setWorldZoom] = useState(0.62);
   const [worldPan, setWorldPan] = useState({ x: 0, y: 0 });
   const [worldDragging, setWorldDragging] = useState(false);
+  const [mapLayer, setMapLayer] = useState<"all" | "tasks" | "people">("all");
   const [mobilePlannerOpen, setMobilePlannerOpen] = useState(false);
   const [sloganIndex, setSloganIndex] = useState(0);
   const [shoreProgress, setShoreProgress] = useState<ShoreProgress | null>(null);
@@ -832,6 +840,12 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
   });
 
   const upcoming = useMemo(() => !now ? [] : debts.map((debt) => ({ debt, date: nextDueDate(debt.dueDay, now, debt.lastPaidAt) })).sort((a, b) => a.date.getTime() - b.date.getTime()), [debts, now]);
+  const upcomingMissions = upcoming.slice(0, 4).map((item, index) => ({
+    ...item,
+    ...missionSpots[index],
+    daysAway: dayDiff(item.date, now),
+  }));
+  const worldDayPhase = now.getHours() < 7 ? "dawn" : now.getHours() < 17 ? "day" : now.getHours() < 20 ? "dusk" : "night";
   const activeDebt = debts.find((debt) => debt.id === selectedDebt);
 
   useEffect(() => {
@@ -1348,16 +1362,35 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
         </aside>
 
         <div className="world-wrap">
-          <div className="world-stage" aria-label={locale === "zh" ? "可移动、缩放和拖动的债务世界" : "Walkable, zoomable, pannable debt world"}>
+          <div className={`world-stage world-${worldDayPhase} map-layer-${mapLayer}`} aria-label={locale === "zh" ? "可移动、缩放和拖动的债务世界" : "Walkable, zoomable, pannable debt world"}>
+            <div className="world-sky" aria-hidden="true"><i/><i/><i/><i/><span>✦</span><span>✦</span><span>✦</span></div>
             <div className="world-growth-status"><b>◉ {locale === "zh" ? "共同大世界正在生长" : "THE SHARED WORLD IS GROWING"}</b><span>{worldPulse.population} {locale === "zh" ? "位真实行者" : "real walkers"} · {worldPulse.recordedDebts} {locale === "zh" ? "笔真实债务" : "real debts"} · {worldPulse.confirmedPayments} {locale === "zh" ? "次真实还款" : "confirmed payments"} · {worldPulse.countries} {locale === "zh" ? "个国家/地区" : "countries/regions"}</span></div>
             <div className="demo-world-note" role="note"><b>◌ {SYSTEM_DEMO_COUNT} {locale === "zh" ? "个系统演示角色" : "SYSTEM DEMOS"}</b><span>{locale === "zh" ? "虚构组合案例 · 不计入上方真实统计" : "Fictional composites · excluded from real metrics"}</span><i>{locale === "zh" ? `地图扩张等级 ${worldExpansionTier}` : `Map expansion tier ${worldExpansionTier}`}</i></div>
+            <div className="map-layer-switcher" aria-label={locale === "zh" ? "地图观察模式" : "Map view mode"}>
+              <b>{locale === "zh" ? "地图镜头" : "MAP LENS"}</b>
+              <button className={mapLayer === "all" ? "active" : ""} onClick={() => setMapLayer("all")}>◎ {locale === "zh" ? "全景" : "ALL"}</button>
+              <button className={mapLayer === "tasks" ? "active" : ""} onClick={() => setMapLayer("tasks")}>◆ {locale === "zh" ? "任务" : "TASKS"}</button>
+              <button className={mapLayer === "people" ? "active" : ""} onClick={() => setMapLayer("people")}>◉ {locale === "zh" ? "行者" : "PEOPLE"}</button>
+            </div>
             <div className={`world-canvas world-expansion-${worldExpansionTier} ${worldDragging ? "is-dragging" : ""}`} style={{ transform: `translate(${worldPan.x}px, ${worldPan.y}px) scale(${worldZoom})` }} onPointerDown={beginWorldPan} onPointerMove={moveWorldPan} onPointerUp={endWorldPan} onPointerCancel={endWorldPan}>
             <div className="world-noise" /><div className="road road-a" /><div className="road road-b" /><div className="road road-c" />
+            <div className="world-biome biome-lake" aria-hidden="true"><i/><i/><i/></div>
+            <div className="world-biome biome-grove grove-a" aria-hidden="true"><i/><i/><i/><i/><i/></div>
+            <div className="world-biome biome-grove grove-b" aria-hidden="true"><i/><i/><i/><i/></div>
+            <div className="world-lanterns" aria-hidden="true"><i/><i/><i/><i/><i/><i/></div>
+            <div className="mission-route route-a" aria-hidden="true"/><div className="mission-route route-b" aria-hidden="true"/><div className="mission-route route-c" aria-hidden="true"/>
             <div className={`district district-home growth-tier-${worldPulse.districts.find((item) => item.key === "mortgage")?.tier ?? 0}`}><span>⌂</span><strong>{locale === "zh" ? "住房山丘" : "HOUSING HILL"}</strong><small>{worldPulse.districts.find((item) => item.key === "mortgage")?.count ?? (locale === "zh" ? "成长中" : "GROWING")}</small></div>
             <div className={`district district-card growth-tier-${worldPulse.districts.find((item) => item.key === "card")?.tier ?? 0}`}><span>▤</span><strong>{locale === "zh" ? "循环信贷街" : "REVOLVING ROW"}</strong><small>{worldPulse.districts.find((item) => item.key === "card")?.count ?? (locale === "zh" ? "成长中" : "GROWING")}</small></div>
             <div className={`district district-study growth-tier-${worldPulse.districts.find((item) => item.key === "education")?.tier ?? 0}`}><span>◒</span><strong>{locale === "zh" ? "教育港" : "EDUCATION HARBOR"}</strong><small>{worldPulse.districts.find((item) => item.key === "education")?.count ?? (locale === "zh" ? "成长中" : "GROWING")}</small></div>
             <div className="district district-calm"><span>≈</span><strong>{locale === "zh" ? "缓冲花园" : "BREATHING GARDEN"}</strong></div>
             <div className="district district-real"><span>✦</span><strong>{locale === "zh" ? "真实灯塔" : "REAL STORY LIGHTHOUSE"}</strong></div>
+
+            {upcomingMissions.map(({ debt, date, daysAway, x, y }, index) => (
+              <button key={`mission-${debt.id}`} className={`map-mission mission-${index + 1} ${daysAway <= 3 ? "mission-urgent" : daysAway <= 7 ? "mission-soon" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} onClick={() => setSelectedDebt(debt.id)}>
+                <span className="mission-beacon"><i>{daysAway === 0 ? (locale === "zh" ? "今" : "NOW") : daysAway}</i><b/></span>
+                <span className="mission-map-card"><small>◆ {locale === "zh" ? `现实任务 ${index + 1}` : `REAL TASK ${index + 1}`}</small><strong>{debtDisplayName(debt, locale)}</strong><em>{date.toLocaleDateString(locale === "zh" ? "zh-CN" : "en-US", { month: "short", day: "numeric" })} · {fullMoney(toDisplay(debt.monthly, debt.currency), displayCurrency)}</em></span>
+              </button>
+            ))}
 
             {npcData.map((npc) => {
               const primary = npc.debts[0];
@@ -1448,9 +1481,9 @@ export default function DebtWorldGame({ locale, accountKey }: { locale: Locale; 
             <div className="mobile-controls" aria-label={locale === "zh" ? "移动控制" : "Movement controls"}><button onClick={() => move(0,-3,"up")}>↑</button><button onClick={() => move(-3,0,"left")}>←</button><button onClick={() => move(3,0,"right")}>→</button><button onClick={() => move(0,3,"down")}>↓</button></div>
           </div>
 
-          <div className="timeline-bar">
-            <div className="timeline-title"><span>◷</span><div><strong>{t.monthlyLane}</strong><small>{cloudState === "synced" ? (locale === "zh" ? "共同世界已更新" : "Shared world updated") : (locale === "zh" ? "等待重新连接" : "Waiting to reconnect")}</small></div></div>
-            <div className="timeline-items">{upcoming.slice(0,4).map(({ debt, date }) => <button key={debt.id} onClick={() => setSelectedDebt(debt.id)}><span>{date.getDate()}</span><div><strong>{debtDisplayName(debt, locale)}</strong><small>≈ {fullMoney(toDisplay(debt.monthly, debt.currency), displayCurrency)} · {debt.method}</small></div></button>)}{!upcoming.length && <p>{locale === "zh" ? "录入债务后，这里会按真实日期生成还款节点。" : "Real payment dates appear here after you add a debt."}</p>}</div>
+          <div className="timeline-bar mission-dock">
+            <div className="timeline-title"><span>◆</span><div><strong>{locale === "zh" ? "现实任务站" : "REAL-LIFE MISSION DOCK"}</strong><small>{locale === "zh" ? `${totalConfirmedPayments} 次真实脚印 · 点击任务只会打开核对` : `${totalConfirmedPayments} confirmed footprints · opening never marks paid`}</small></div></div>
+            <div className="timeline-items">{upcomingMissions.map(({ debt, date, daysAway }, index) => <button key={debt.id} className={`${daysAway <= 3 ? "timeline-urgent" : daysAway <= 7 ? "timeline-soon" : ""}`} onClick={() => setSelectedDebt(debt.id)}><span><b>{date.getDate()}</b><i>{date.toLocaleDateString(locale === "zh" ? "zh-CN" : "en-US", { month: "short" })}</i></span><div><em>MISSION {String(index + 1).padStart(2, "0")} · {daysAway === 0 ? (locale === "zh" ? "今天" : "TODAY") : `${daysAway}${locale === "zh" ? " 天后" : "D"}`}</em><strong>{debtDisplayName(debt, locale)}</strong><small>{fullMoney(toDisplay(debt.monthly, debt.currency), displayCurrency)} · {debt.method}</small></div><u>→</u></button>)}{!upcoming.length && <button className="mission-empty" onClick={() => setGuideOpen(true)}><span><b>＋</b><i>START</i></span><div><em>MISSION 00</em><strong>{locale === "zh" ? "和小岸梳理第一笔债务" : "Map the first debt with Kian"}</strong><small>{locale === "zh" ? "录入后，真实日期会长成地图任务。" : "Real dates become map missions after setup."}</small></div><u>→</u></button>}</div>
           </div>
         </div>
       </section>

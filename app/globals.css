@@ -1428,6 +1428,73 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.6;
 }
 
+/* Living map: time-of-day atmosphere, biomes, task routes, and a useful map lens. */
+.world-stage { isolation: isolate; transition: background .5s ease; }
+.world-stage.world-dawn { background: radial-gradient(circle at 72% 24%,rgba(255,193,141,.33),transparent 24%),radial-gradient(circle at 20% 75%,rgba(126,182,202,.25),transparent 25%),linear-gradient(145deg,#ead8c8,#c7d3cb); }
+.world-stage.world-day { background: radial-gradient(circle at 74% 28%,rgba(217,240,93,.24),transparent 22%),radial-gradient(circle at 22% 72%,rgba(126,182,202,.28),transparent 25%),linear-gradient(140deg,#ebe5d2,#cbd3c3); }
+.world-stage.world-dusk { background: radial-gradient(circle at 78% 20%,rgba(238,141,102,.4),transparent 27%),radial-gradient(circle at 20% 75%,rgba(130,147,190,.3),transparent 28%),linear-gradient(145deg,#d9c6b7,#adb9b5); }
+.world-stage.world-night { background: radial-gradient(circle at 76% 20%,rgba(217,240,93,.12),transparent 20%),radial-gradient(circle at 20% 72%,rgba(126,182,202,.22),transparent 24%),linear-gradient(145deg,#70817d,#2d4948); }
+.world-sky { position: absolute; z-index: 2; inset: 0; overflow: hidden; pointer-events: none; opacity: .7; }
+.world-sky > i { position: absolute; width: 86px; height: 24px; border-radius: 999px; background: rgba(255,255,255,.36); box-shadow: 24px 4px 0 -5px rgba(255,255,255,.31),-23px 7px 0 -8px rgba(255,255,255,.29); filter: blur(.3px); animation: map-cloud-drift 28s linear infinite; }
+.world-sky > i:nth-child(1) { left: 6%; top: 14%; animation-delay: -6s; }
+.world-sky > i:nth-child(2) { left: 43%; top: 21%; transform: scale(.7); animation-delay: -19s; }
+.world-sky > i:nth-child(3) { left: 78%; top: 43%; transform: scale(.86); animation-delay: -12s; }
+.world-sky > i:nth-child(4) { left: 23%; top: 68%; transform: scale(.62); animation-delay: -23s; }
+.world-sky > span { position: absolute; display: none; color: #f5ffd0; text-shadow: 0 0 10px #d9f05d; animation: light-twinkle 2.2s ease-in-out infinite; }
+.world-night .world-sky > span,.world-dusk .world-sky > span { display: block; }
+.world-sky > span:nth-of-type(1) { left: 19%; top: 16%; }.world-sky > span:nth-of-type(2) { left: 65%; top: 12%; animation-delay: -.7s; }.world-sky > span:nth-of-type(3) { left: 87%; top: 72%; animation-delay: -1.4s; }
+.map-layer-switcher { position: absolute; z-index: 36; left: 14px; top: 74px; display: flex; align-items: center; gap: 5px; padding: 6px; border: 1px solid rgba(255,255,255,.52); border-radius: 15px; color: #fff; background: rgba(25,38,34,.88); box-shadow: 0 10px 28px rgba(23,32,29,.2); backdrop-filter: blur(10px); }
+.map-layer-switcher b { padding: 0 7px; color: rgba(255,255,255,.56); font: 900 9px var(--font-mono); letter-spacing: .08em; }
+.map-layer-switcher button { min-height: 33px; border: 0; border-radius: 10px; padding: 0 10px; color: rgba(255,255,255,.72); background: rgba(255,255,255,.07); font: 900 10px var(--font-mono); cursor: pointer; }
+.map-layer-switcher button.active { color: var(--ink); background: var(--acid); box-shadow: 0 0 18px rgba(217,240,93,.26); }
+.world-biome,.world-lanterns,.mission-route { position: absolute; pointer-events: none; }
+.biome-lake { z-index: 1; left: 39%; top: 40%; width: 21%; height: 15%; border: 1px solid rgba(35,94,112,.28); border-radius: 49% 42% 51% 46%; background: radial-gradient(ellipse at 42% 34%,rgba(255,255,255,.55),transparent 22%),repeating-radial-gradient(ellipse at center,rgba(117,187,205,.68) 0 4px,rgba(94,163,181,.46) 5px 8px); box-shadow: inset 0 0 22px rgba(255,255,255,.42),0 8px 25px rgba(48,105,120,.18); transform: rotate(-7deg); }
+.biome-lake i { position: absolute; width: 20px; height: 7px; border-radius: 50%; border-top: 2px solid rgba(255,255,255,.72); }.biome-lake i:nth-child(1){left:17%;top:26%;}.biome-lake i:nth-child(2){left:53%;top:57%;}.biome-lake i:nth-child(3){right:9%;top:28%;}
+.biome-grove { z-index: 2; width: 116px; height: 82px; }
+.grove-a { left: 19%; top: 17%; }.grove-b { right: 15%; bottom: 15%; transform: scale(.82); }
+.biome-grove i { position: absolute; width: 29px; height: 36px; border: 1px solid rgba(42,76,44,.25); border-radius: 58% 42% 52% 48%; background: linear-gradient(145deg,#cbe279,#7ba57a); box-shadow: inset -6px -7px rgba(42,83,55,.12),0 5px 10px rgba(35,66,42,.15); }
+.biome-grove i::after { content:""; position:absolute; left:13px; bottom:-13px; width:4px; height:16px; border-radius:3px; background:#7b6046; }
+.biome-grove i:nth-child(1){left:7px;top:28px}.biome-grove i:nth-child(2){left:35px;top:4px;transform:scale(.8)}.biome-grove i:nth-child(3){left:59px;top:31px;transform:scale(1.08)}.biome-grove i:nth-child(4){right:0;top:8px;transform:scale(.7)}.biome-grove i:nth-child(5){left:38px;bottom:0;transform:scale(.65)}
+.world-lanterns { z-index: 3; inset: 0; }
+.world-lanterns i { position:absolute; width:8px; height:8px; border:2px solid rgba(67,82,50,.58); border-radius:50%; background:#fff5a4; box-shadow:0 0 12px #d9f05d,0 0 22px rgba(217,240,93,.46); animation: light-twinkle 2.4s ease-in-out infinite; }
+.world-lanterns i::after { content:""; position:absolute; left:2px; top:8px; width:1px; height:14px; background:rgba(55,71,50,.55); }
+.world-lanterns i:nth-child(1){left:28%;top:41%}.world-lanterns i:nth-child(2){left:43%;top:27%;animation-delay:-.6s}.world-lanterns i:nth-child(3){left:59%;top:63%;animation-delay:-1.2s}.world-lanterns i:nth-child(4){left:73%;top:48%;animation-delay:-1.8s}.world-lanterns i:nth-child(5){left:18%;top:72%;animation-delay:-.9s}.world-lanterns i:nth-child(6){left:84%;top:26%;animation-delay:-1.5s}
+.mission-route { z-index: 2; border: 2px dashed rgba(223,112,76,.42); border-radius: 50%; opacity: .72; transition: opacity .2s ease; }
+.route-a { left: 32%; top: 26%; width: 36%; height: 45%; transform: rotate(7deg); }.route-b { left: 24%; top: 46%; width: 48%; height: 31%; transform: rotate(-9deg); border-color: rgba(104,160,178,.45); }.route-c { left: 43%; top: 19%; width: 23%; height: 58%; transform: rotate(18deg); border-color: rgba(160,183,58,.45); }
+.map-mission { position:absolute; z-index:13; width:56px; height:56px; transform:translate(-50%,-50%); border:0; border-radius:50%; color:var(--ink); background:transparent; cursor:pointer; transition:transform .18s ease,opacity .2s ease,filter .2s ease; }
+.map-mission:hover { transform:translate(-50%,-58%) scale(1.05); z-index:25; }
+.mission-beacon { position:relative; width:52px; height:52px; display:grid; place-items:center; border:2px solid rgba(255,255,255,.8); border-radius:50%; color:#fff; background:linear-gradient(145deg,#de7358,#a94f45); box-shadow:0 8px 22px rgba(137,58,45,.3),0 0 0 8px rgba(232,110,78,.13); }
+.mission-beacon::before,.mission-beacon::after { content:""; position:absolute; inset:-8px; border:1px solid rgba(232,110,78,.4); border-radius:50%; animation:mission-ring 2.4s ease-out infinite; }.mission-beacon::after{animation-delay:-1.2s}
+.mission-beacon i { font:900 13px var(--font-mono); font-style:normal; }.mission-beacon b { position:absolute; right:-4px; top:-5px; width:17px; height:17px; display:grid; place-items:center; border-radius:50%; background:var(--acid); box-shadow:0 0 12px rgba(217,240,93,.7); }.mission-beacon b::after{content:"◆";font-size:7px}
+.mission-soon .mission-beacon { color:var(--ink); background:linear-gradient(145deg,#e8d96b,#b9d24d); }.mission-urgent .mission-beacon { background:linear-gradient(145deg,#f06f55,#923c37); animation:mission-urgent 1.6s ease-in-out infinite; }
+.mission-map-card { position:absolute; left:50%; bottom:64px; width:184px; display:grid; gap:4px; transform:translateX(-50%) translateY(7px); visibility:hidden; opacity:0; padding:11px 13px; border:1px solid rgba(255,255,255,.2); border-radius:15px; color:#fff; background:rgba(22,31,28,.95); box-shadow:0 15px 32px rgba(23,32,29,.26); text-align:left; pointer-events:none; transition:opacity .16s ease,transform .16s ease,visibility .16s ease; }
+.map-mission:hover .mission-map-card,.map-layer-tasks .mission-map-card { visibility:visible; opacity:1; transform:translateX(-50%) translateY(0); }
+.mission-map-card small { color:var(--acid); font:900 9px var(--font-mono); letter-spacing:.06em; }.mission-map-card strong{font-size:14px}.mission-map-card em{color:#bfe5ef;font:800 10px var(--font-mono);font-style:normal}
+.map-layer-tasks .npc,.map-layer-tasks .district { opacity:.2; filter:saturate(.45); }.map-layer-tasks .map-mission{transform:translate(-50%,-50%) scale(1.08)}
+.map-layer-people .map-mission,.map-layer-people .mission-route { opacity:.08; filter:grayscale(1); }.map-layer-people .world-biome{opacity:.45}
+.map-layer-all .npc,.map-layer-all .district,.map-layer-all .map-mission,.map-layer-all .mission-route,.map-layer-people .npc,.map-layer-people .district { transition:opacity .2s ease,filter .2s ease,transform .18s ease; }
+
+/* The dock turns calendar entries into legible missions without pretending payment happened. */
+.world-wrap { grid-template-rows:minmax(0,1fr) 154px; }
+.mission-dock { min-height:154px; grid-template-columns:230px minmax(0,1fr); color:#f7f5ea; border-top:1px solid rgba(255,255,255,.12); background:linear-gradient(100deg,#15211e,#203430 54%,#294843); box-shadow:inset 0 1px rgba(255,255,255,.05); }
+.mission-dock .timeline-title { border-right:1px solid rgba(255,255,255,.13); background:radial-gradient(circle at 20% 30%,rgba(217,240,93,.13),transparent 45%); }
+.mission-dock .timeline-title > span { width:46px; height:46px; display:grid; place-items:center; flex:0 0 auto; border:1px solid rgba(217,240,93,.34); border-radius:15px; color:var(--acid); background:rgba(217,240,93,.08); box-shadow:0 0 24px rgba(217,240,93,.08); }
+.mission-dock .timeline-title strong { color:var(--acid); font-size:12px; }.mission-dock .timeline-title small{color:rgba(255,255,255,.62);font-size:11px;line-height:1.45}
+.mission-dock .timeline-items { padding:10px; gap:8px; scrollbar-color:#688079 transparent; }
+.mission-dock .timeline-items > button { position:relative; flex:1 0 238px; max-width:310px; grid-template-columns:50px minmax(0,1fr) 22px; gap:11px; min-height:130px; padding:12px; overflow:hidden; border:1px solid rgba(255,255,255,.13); border-radius:17px; color:#fff; background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.035)); box-shadow:inset 0 1px rgba(255,255,255,.06); }
+.mission-dock .timeline-items > button::before { content:""; position:absolute; left:12px; right:12px; top:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.mission-dock .timeline-items > button:hover { color:var(--ink); background:linear-gradient(145deg,#e8f58d,#cfe15d); transform:translateY(-2px); box-shadow:0 10px 24px rgba(3,11,8,.2); }
+.mission-dock .timeline-items > button > span { width:50px; height:64px; align-content:center; gap:2px; border:1px solid rgba(255,255,255,.22); border-radius:14px; background:rgba(255,255,255,.07); }
+.mission-dock .timeline-items > button > span b { font:900 19px var(--font-mono); }.mission-dock .timeline-items > button > span i{color:var(--blue);font:900 8px var(--font-mono);font-style:normal;text-transform:uppercase}
+.mission-dock .timeline-items > button div{gap:5px}.mission-dock .timeline-items em{color:var(--acid);font:900 9px var(--font-mono);font-style:normal;letter-spacing:.05em}.mission-dock .timeline-items strong{font-size:15px}.mission-dock .timeline-items small{color:rgba(255,255,255,.62);font-size:11px}.mission-dock .timeline-items u{color:var(--acid);font-size:20px;text-decoration:none}
+.mission-dock .timeline-items > button:hover em,.mission-dock .timeline-items > button:hover small,.mission-dock .timeline-items > button:hover span i,.mission-dock .timeline-items > button:hover u{color:#35504b}
+.mission-dock .timeline-items > .timeline-soon{border-color:rgba(217,240,93,.4)}.mission-dock .timeline-items > .timeline-urgent{border-color:rgba(238,116,86,.58);box-shadow:inset 0 0 0 1px rgba(238,116,86,.12)}.mission-dock .timeline-items > .timeline-urgent::before{background:linear-gradient(90deg,transparent,var(--coral),transparent)}
+.mission-dock .timeline-items > .mission-empty { max-width:410px; border-style:dashed; }
+
+@keyframes map-cloud-drift { 0%{translate:-30px 0}50%{translate:34px -4px}100%{translate:-30px 0} }
+@keyframes mission-ring { 0%{transform:scale(.75);opacity:.7}100%{transform:scale(1.35);opacity:0} }
+@keyframes mission-urgent { 50%{box-shadow:0 8px 22px rgba(137,58,45,.35),0 0 0 11px rgba(232,110,78,.18)} }
+
 @media (max-width: 760px) {
   .npc .npc-tag { min-width: 174px; padding: 12px 13px; }
   .npc .npc-tag strong { font-size: 17px; }
@@ -1444,6 +1511,12 @@ a { color: inherit; text-decoration: none; }
   .world-canvas.world-expansion-3 { left: -72%; top: -68%; width: 244%; height: 236%; }
   .demo-world-note { top: 68px; right: 8px; width: 216px; padding: 8px 10px; }
   .demo-world-note span { font-size: 10px; }
+  .map-layer-switcher { left:8px; top:72px; max-width:calc(100% - 240px); }.map-layer-switcher b{display:none}.map-layer-switcher button{padding:0 8px;font-size:9px}
+  .world-wrap { grid-template-rows:580px 154px; }
+  .mission-dock { grid-template-columns:118px minmax(0,1fr); }
+  .mission-dock .timeline-title { padding:10px; gap:7px; }.mission-dock .timeline-title > span{width:34px;height:34px;border-radius:11px}.mission-dock .timeline-title small{font-size:9px}.mission-dock .timeline-title strong{font-size:10px}
+  .mission-dock .timeline-items{padding:8px}.mission-dock .timeline-items > button{flex-basis:220px;min-height:134px;padding:10px}.mission-map-card{width:168px}
+  .biome-grove{transform:scale(.72)}.grove-b{transform:scale(.64)}
 }
 
 /* Shared registered roles: always visible, deliberately coarse, and distinct from reviewed stories. */
