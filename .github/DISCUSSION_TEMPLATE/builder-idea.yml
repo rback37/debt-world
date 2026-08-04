@@ -1,0 +1,35 @@
+title: "[World idea] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose one small, privacy-safe improvement to Debt World. Do not include real financial records, identity details, credentials, or private conversations.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe one user or contributor problem without personal financial details.
+      placeholder: A new contributor cannot tell which task is safe to start...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Smallest useful version
+      description: What is the smallest change that would test the idea?
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Privacy, abuse, and deletion considerations
+      description: What could expose someone, be gamed, shame users, or become hard to remove?
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: This proposal contains no real user data, exact personal finances, credentials, or private conversations.
+          required: true

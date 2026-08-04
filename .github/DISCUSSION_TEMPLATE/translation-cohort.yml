@@ -1,0 +1,37 @@
+title: "[Language cohort] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Start or join a small language and regional review cohort. Reviewers improve clarity and dignity; they do not provide individual legal or financial advice.
+  - type: input
+    id: language
+    attributes:
+      label: Language and broad region
+      placeholder: Spanish · Latin America
+    validations:
+      required: true
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: What can you review?
+      options:
+        - Interface translation
+        - Regional debt categories
+        - Tone and anti-shaming language
+        - Accessibility and reading level
+        - Public/nonprofit resource wording
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Relevant experience
+      description: Optional. Share only what is safe and relevant; do not post personal financial records.
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: I will not post identifiable user data, exact personal finances, credentials, or private conversations.
+          required: true
