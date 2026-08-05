@@ -1,0 +1,54 @@
+name: Bug report / 故障报告
+description: Report a reproducible product problem without including private financial data.
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include passwords, recovery codes, exact debt amounts, bank details, identity documents, complete statements, or another person's information.
+        请勿提交密码、恢复码、精确债务金额、银行卡、身份证件、完整账单或他人信息。
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / 区域
+      options:
+        - Account or login / 账号登录
+        - Debt setup or editing / 债务录入编辑
+        - Payments or progress / 还款进度
+        - World or character / 世界角色
+        - AI guide / 小岸 AI
+        - Community or moderation / 社区审核
+        - Privacy, export, or deletion / 隐私导出删除
+        - Translation or accessibility / 翻译无障碍
+        - Other / 其他
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      description: Use fictional or rounded example data only.
+      placeholder: "1. Open…\n2. Select…\n3. The page…"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual result / 预期与实际结果
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device and browser / 设备与浏览器
+      placeholder: "Example: Android 15, Chrome 138"
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation / 隐私确认
+      options:
+        - label: I removed all real financial and identity data from this report. / 我已移除所有真实财务和身份数据。
+          required: true

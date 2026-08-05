@@ -1,0 +1,1 @@
+ALTER TABLE `vaults` ADD `monthly_expenses` real DEFAULT 0 NOT NULL;

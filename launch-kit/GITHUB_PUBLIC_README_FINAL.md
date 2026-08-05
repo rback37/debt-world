@@ -1,9 +1,9 @@
 # Debt World · 上岸星球
 
-> A shared, walkable world for honest debt journeys.  
+> A shared, walkable world for honest debt journeys.
 > 一个会随着真实匿名数据不断生长的债务世界。
 
-[Live beta](https://www.debtworld.org/en?src=githubreadme) · [23-second demo](#walk-the-world-in-23-seconds--23-秒看懂上岸星球) · [5-minute test](#test-debt-world-in-5-minutes--5-分钟体验) · [Build the world](https://www.debtworld.org/en/contribute) · [Roadmap](ROADMAP.md) · [Public build log](https://github.com/rback37/debt-world/issues/1) · [Contribute](CONTRIBUTING.md) · [Safety](https://www.debtworld.org/en/safety)
+[Live beta](https://www.debtworld.org/en?src=githubreadme) · [23-second demo](#walk-the-world-in-23-seconds--23-秒看懂上岸星球) · [5-minute test](#test-debt-world-in-5-minutes--5-分钟体验) · [Roadmap](ROADMAP.md) · [Public build log](https://github.com/rback37/debt-world/issues/1) · [Contribute](CONTRIBUTING.md) · [Safety](https://www.debtworld.org/en/safety)
 
 ## Walk the world in 23 seconds · 23 秒看懂上岸星球
 
@@ -86,29 +86,10 @@ We are also open to responsible early-stage partners, grants, or funding that pr
 
 ## Repository scope
 
-This public repository is the project’s product, source, and community home. The runnable application source is published under **GNU AGPL-3.0-or-later** so people can inspect it, improve it, and build compatible community versions while preserving the same network-source freedoms.
-
-Production secrets, user data, exact financial records, private AI conversations, recovery codes, administrator access, and private operating material are never part of the public repository. The project name, logo, and visual brand are not automatically licensed as trademarks.
-
-Local development requires Node.js 22.13 or newer:
-
-```bash
-npm install
-npm run dev
-```
-
-Validation:
-
-```bash
-npm run build
-npm run lint
-npm test
-```
+This public repository is the project’s product-and-community home. Production source code, infrastructure settings, secrets, private operating notes, and user data are intentionally not published here. A source license has not been selected, so this repository must not be described as open source.
 
 - [Roadmap](ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
-- [Community discussions](https://github.com/rback37/debt-world/discussions)
-- [AGPL-3.0 license](LICENSE)
 - [Security](SECURITY.md)
 - [Code of conduct](CODE_OF_CONDUCT.md)
 

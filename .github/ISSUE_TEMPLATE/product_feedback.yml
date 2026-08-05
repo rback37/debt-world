@@ -1,0 +1,42 @@
+name: Product feedback / 产品反馈
+description: Tell us what felt confusing, judgmental, unsafe, or unexpectedly helpful.
+title: "[Feedback] "
+labels: ["feedback", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Specific discomfort is more useful than general praise. Never post exact financial or identity data here.
+        具体的不舒服比笼统的夸奖更有用。请勿在这里发布精确财务或身份数据。
+  - type: dropdown
+    id: feeling
+    attributes:
+      label: What best describes this feedback? / 反馈类型
+      options:
+        - I could not understand a step / 某一步看不懂
+        - Something felt judgmental or anxiety-inducing / 感到被评判或更焦虑
+        - I did not trust a privacy boundary / 不信任某个隐私边界
+        - A feature did not match real life / 功能与现实不符
+        - Something helped me see the situation clearly / 某处确实更清楚
+        - Accessibility or readability problem / 无障碍或可读性问题
+        - Other / 其他
+    validations:
+      required: true
+  - type: textarea
+    id: moment
+    attributes:
+      label: What happened? / 发生了什么
+      description: Describe the exact screen or sentence using fictional or rounded amounts.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What would make it better? / 希望怎样改
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation / 隐私确认
+      options:
+        - label: I removed all real financial and identity data. / 我已移除所有真实财务和身份数据。
+          required: true

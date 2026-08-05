@@ -1,0 +1,1 @@
+ALTER TABLE `debts` ADD `sharing_mode` text DEFAULT 'private' NOT NULL;

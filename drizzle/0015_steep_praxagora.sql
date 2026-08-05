@@ -1,0 +1,1 @@
+ALTER TABLE `accounts` ADD `signup_source` text DEFAULT 'direct' NOT NULL;
