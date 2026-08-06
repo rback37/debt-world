@@ -3,7 +3,7 @@
 > A shared, walkable world for honest debt journeys.  
 > 一个会随着真实匿名数据不断生长的债务世界。
 
-[Live beta](https://www.debtworld.org/en?src=githubreadme) · [23-second demo](#walk-the-world-in-23-seconds--23-秒看懂上岸星球) · [5-minute test](#test-debt-world-in-5-minutes--5-分钟体验) · [Roadmap](ROADMAP.md) · [Public build log](https://github.com/rback37/debt-world/issues/1) · [Contribute](CONTRIBUTING.md) · [Safety](https://www.debtworld.org/en/safety)
+[Live beta](https://www.debtworld.org/en?src=githubreadme) · [23-second demo](#walk-the-world-in-23-seconds--23-秒看懂上岸星球) · [3-minute guest test](#try-debt-world-in-3-minutes--3-分钟免注册体验) · [Roadmap](ROADMAP.md) · [Public build log](https://github.com/rback37/debt-world/issues/1) · [Contribute](CONTRIBUTING.md) · [Safety](https://www.debtworld.org/en/safety)
 
 ## Walk the world in 23 seconds · 23 秒看懂上岸星球
 
@@ -13,20 +13,19 @@
 >
 > 真实产品画面。所有可见角色均为系统演示数据，不展示真实用户的债务、收入、账户身份或私人 AI 对话。
 
-[**Start the 5-minute test**](https://www.debtworld.org/en?src=githubreadme) · [开始 5 分钟体验](https://www.debtworld.org/?src=githubreadme) · [Safety & privacy](https://www.debtworld.org/en/safety) · [中文安全说明](https://www.debtworld.org/safety)
+[**Try the 3-minute guest mode**](https://www.debtworld.org/en?src=githubreadme) · [开始 3 分钟免注册体验](https://www.debtworld.org/?src=githubreadme) · [Safety & privacy](https://www.debtworld.org/en/safety) · [中文安全说明](https://www.debtworld.org/safety)
 
-## Test Debt World in 5 minutes · 5 分钟体验
+## Try Debt World in 3 minutes · 3 分钟免注册体验
 
-1. Watch the walkthrough above and read the privacy boundary before registering.
-2. Open the beta and create an anonymous username and password. No email, phone number, or legal name is required.
-3. Choose a country and language, enter the shared world, and look around before deciding whether to enter financial information.
-4. If you feel comfortable, privately add one truthful debt or cash-flow item. If you would rather not enter financial data, skip this step and test navigation, keyboard controls, language, readability, or accessibility instead.
-5. Open **Feedback** in the product and answer one question: **During your first visit, which step felt most confusing, intrusive, or made you want to leave?**
+1. Open the beta and choose **Try it without an account**. No email, phone number, legal name, or signup is required.
+2. Use fictional or rough numbers for up to three debts, monthly take-home income, essential living costs, planned payments, and due dates.
+3. Review an on-page snapshot of total balance, planned payments, nearest due date, cash-flow pressure, and one practical next step.
+4. Guest inputs never leave the current page, are cleared on refresh, and do not enter world statistics. Debt World counts only anonymous guest starts and completions.
+5. If the snapshot helps, create an anonymous account to build a plan you can save and update. Guest entries are not transferred automatically; you confirm everything again.
 
-中文：先看上方动图和隐私说明，再用匿名用户名注册。进入世界后可以先观察，不必立即填写财务信息；愿意时只录入一项真实且私密的负债或现金流，不愿填写也可以只测试地图、键盘、语言和可读性。最后在产品内的“反馈”入口回答：**第一次进入时，哪一步最让你困惑、不安或想退出？**
+中文：打开公测后选择 **先不注册，看看我的本月压力**。可以使用虚构数据或大致数字，整理最多三笔债务、收入、必要生活开销、本月计划还款和还款日。结果只在当前页面生成，刷新即清空；金额、类型和表单内容不会上传、保存或进入大世界统计。只有你觉得有帮助并主动创建匿名账号后，才会开始建立可持续更新的私密计划，而且需要再次确认数据。
 
-Please do not invent debt records just to test the form; fake records would distort future anonymous aggregates. Never post personal debt amounts, income, passwords, bank details, identity documents, or private AI conversations on GitHub.
-
+Please do not enter another person's finances or use a real password in guest-mode test notes. Never post personal debt amounts, income, bank details, identity documents, or private AI conversations on GitHub.
 ## Why it exists
 
 Social media can make ordinary people feel as if everyone else is rich. Debt World reverses that illusion. It helps people map real debt pressure, see repayment progress clearly, and discover that they are not alone.
