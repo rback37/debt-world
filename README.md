@@ -26,6 +26,7 @@
 中文：打开公测后选择 **先不注册，看看我的本月压力**。可以使用虚构数据或大致数字，整理最多三笔债务、收入、必要生活开销、本月计划还款和还款日。结果只在当前页面生成，刷新即清空；金额、类型和表单内容不会上传、保存或进入大世界统计。只有你觉得有帮助并主动创建匿名账号后，才会开始建立可持续更新的私密计划，而且需要再次确认数据。
 
 Please do not enter another person's finances or use a real password in guest-mode test notes. Never post personal debt amounts, income, bank details, identity documents, or private AI conversations on GitHub.
+
 ## Why it exists
 
 Social media can make ordinary people feel as if everyone else is rich. Debt World reverses that illusion. It helps people map real debt pressure, see repayment progress clearly, and discover that they are not alone.
