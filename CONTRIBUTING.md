@@ -19,3 +19,7 @@ Thank you for helping Debt World become clearer, safer, and more useful.
 Do not use GitHub to request a loan, promote a service, solicit users, or give personalized legal or financial advice. Private personal feedback belongs in the product’s Feedback panel.
 
 This repository currently contains public product and community documentation, not the production source. A source contribution workflow and license will be added only if the owner later opens a reviewed portion of the codebase.
+
+For a first documentation change, follow the [ten-minute documentation
+contribution checklist](DOCS_CHECKLIST.md). It uses Git only and includes
+Windows, macOS, and Linux notes.
