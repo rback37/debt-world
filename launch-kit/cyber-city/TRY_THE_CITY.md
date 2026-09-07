@@ -19,10 +19,12 @@ Optional report:
 
 Do not include account names, passwords, exact personal finances, bank details, private conversations, or screenshots showing unrelated browser tabs or personal information.
 
-Public product feedback: [existing beta discussion](https://github.com/rback37/debt-world/issues/1). Private feedback: the website's Feedback panel after sign-in.
+Public product feedback: [short city feedback form](https://github.com/rback37/debt-world/issues/new?template=city-feedback.yml) or [existing beta discussion](https://github.com/rback37/debt-world/issues/1). GitHub submission needs a GitHub account; the city preview does not need one. Private feedback: the website's Feedback panel after sign-in. Do not send passwords or bank details through any feedback channel.
 
 ## 中文
 
 无需注册、填写债务或讲述私人经历。打开城市，试一下步行或飞行，从导航去一个街区，再告诉我们一个需要改善的地方。可以说“不觉得有用”，不需要好评。
 
 反馈可以只写：大致设备与浏览器、尝试的动作、预期、实际结果，以及体验是更清楚、更焦虑还是没有变化。不要附账号、精确债务、收入、银行资料、私人对话或带有其他个人信息的截图。
+
+[填写简短城市反馈](https://github.com/rback37/debt-world/issues/new?template=city-feedback.yml) 或在 [现有公测讨论](https://github.com/rback37/debt-world/issues/1) 留言。提交 GitHub 反馈需要 GitHub 账号，试玩不需要。

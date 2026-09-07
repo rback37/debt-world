@@ -1,0 +1,65 @@
+name: 3D city feedback · 城市体验反馈
+description: One observation from the public preview. No debt details needed. 免注册试玩后，留一个体验问题。
+title: "[City feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Try the city without a Debt World account:** [English](https://www.debtworld.org/en/city?src=githubfeedback) · [中文](https://www.debtworld.org/city?src=githubfeedback).
+
+        One honest observation is enough. You do not need real debt or a personal story to help. A GitHub account is needed to submit here; the preview itself needs no signup.
+
+        **This issue will be public.** Do not include account identifiers, passwords, exact financial amounts, bank details, private AI conversations, diagnostic exports, or other people's stories. If you attach a screenshot, use the public scenery preview and crop unrelated browser content. Security reports belong in [SECURITY.md](https://github.com/rback37/debt-world/blob/main/SECURITY.md), not here.
+
+        只需一个真实体验反馈，不需要填写债务或私人经历。GitHub 提交需要 GitHub 账号，城市试玩本身无需注册。此处内容公开，请勿填写账号、密码、精确债务与收入、银行资料或私人对话。截图只使用公开试玩场景，并裁掉无关页面信息。
+  - type: textarea
+    id: observation
+    attributes:
+      label: What was the first confusing, slow, or useful interaction? · 第一个困惑、卡顿或有帮助的地方
+      description: Tell us the action you tried, what you expected, and what happened. One sentence is welcome. 写下尝试的动作、预期和实际结果，一句话也可以。
+      placeholder: "Example: On my phone, I opened the district directory but could not tell how to return to walking. / 例如：手机上打开街区导航后，不知道怎样回到步行。"
+    validations:
+      required: true
+  - type: dropdown
+    id: device-class
+    attributes:
+      label: Device type (optional) · 设备类型（选填）
+      options:
+        - Phone · 手机
+        - Tablet · 平板
+        - Laptop or desktop · 电脑
+        - Prefer not to say · 不填写
+    validations:
+      required: false
+  - type: dropdown
+    id: browser-family
+    attributes:
+      label: Browser (optional) · 浏览器（选填）
+      options:
+        - Chrome
+        - Safari
+        - Firefox
+        - Edge
+        - In-app browser · 应用内浏览器
+        - Other or unsure · 其他或不确定
+    validations:
+      required: false
+  - type: dropdown
+    id: clarity
+    attributes:
+      label: Did the city make the next action clearer? (optional) · 城市让下一步更清楚了吗？（选填）
+      options:
+        - Clearer · 更清楚
+        - No difference · 没有区别
+        - More confusing · 更困惑
+        - Could not load or explore · 无法加载或体验
+        - Too early to tell · 暂时无法判断
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy-check
+    attributes:
+      label: Public feedback privacy check · 公开反馈隐私检查
+      options:
+        - label: I have removed personal financial details, account information, private conversations, and unrelated screenshot content. 我已去除个人财务详情、账号信息、私人对话和截图中的无关内容。
+          required: true

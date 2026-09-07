@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Explore the 3D city · 免注册试玩
+    url: https://www.debtworld.org/en/city?src=githubissues
+    about: Public scenery preview. No signup or financial information needed. 公开城市场景，无需注册或填写财务信息。
+  - name: Existing beta discussion · 现有公测讨论
+    url: https://github.com/rback37/debt-world/issues/1
+    about: Leave one non-sensitive observation or join the current conversation. 欢迎留下不含隐私的体验反馈。
+  - name: Security reporting · 安全问题
+    url: https://github.com/rback37/debt-world/blob/main/SECURITY.md
+    about: Read the security reporting instructions before disclosing a vulnerability. 报告安全漏洞前请先阅读说明。
