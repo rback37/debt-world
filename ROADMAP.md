@@ -6,11 +6,23 @@ Debt World is building a walkable, anonymous world that helps people see ordinar
 
 This roadmap describes product direction, not a promise of dates or outcomes. Priorities change when real user feedback, reliability, privacy, or safety evidence says they should.
 
+## Shipped on September 7, 2026 · 本次已上线
+
+- A real 3D cyber city with walking, flight, camera controls, district travel, and touch navigation.
+- Nine financial and community districts connected to existing account features; no new payment execution or bank connection.
+- Public, scenery-only city previews at [/city](https://www.debtworld.org/city?src=githubroadmap) and [/en/city](https://www.debtworld.org/en/city?src=githubroadmap), without registration or private-data access.
+- Private total-debt labels for the account owner, a repayment-progress beacon, and public records distributed on an expanding promenade.
+- A classic 2D fallback for the signed-in world. The older no-signup, on-device planning example also remains available.
+
+These are initial public-beta capabilities, not a claim that low-end phones, all networks, screen readers, or every browser have passed visual acceptance. The next work is informed by real reports.
+
+中文：3D 城市、步行与飞行、九个主题街区、免注册场景试玩、真实进度信标和经典地图切换已上线。下一阶段重点收集低配手机、触控、网络、可读性和真实回访体验；不把实现完成说成所有设备都已验证。
+
 ## Now · 当前公测重点
 
 - Make registration, login, account recovery, and session persistence reliable across common regions, browsers, phones, and slower networks.
 - Keep personal balances, income, expenses, and private Kian conversations visible only to the account owner by default.
-- Improve the walkable world, character readability, zooming, keyboard controls, mobile layout, and clear separation between the user's character and system demo walkers.
+- Validate 3D controls, touch navigation, readable overlays, rendering performance, and the classic-map fallback on a broader range of real devices.
 - Support multiple debts, original and current balances, APR, minimums, due dates, repayment methods, income, living costs, real payments, and early payments.
 - Give the founder privacy-safe admin aggregates for visits, registration, first debt entry, feedback, invitations, and channel attribution—never a surveillance view of private financial conversations.
 - Collect one concrete first-visit question: **Which step felt most confusing, intrusive, or made you want to leave?**
@@ -19,7 +31,7 @@ This roadmap describes product direction, not a promise of dates or outcomes. Pr
 
 ## Next · 下一阶段
 
-- Add a no-signup guest demo whose synthetic records are technically separated from real anonymous aggregates.
+- Improve the transition from the now-live, no-signup city preview and local planning example to a useful private repayment plan.
 - Turn repeated, reviewed debt categories into new districts or buildings only after privacy thresholds are met; a popular free-text label must never automatically expose or publish user text.
 - Expand privacy-safe world statistics with minimum sample sizes, clear methodology, and no individual “who owes the most” ranking.
 - Improve Kian's multilingual listening, clarification, interest calculations, repayment scenarios, and handoff to trustworthy country-specific resources while preserving its educational—not professional-advice—boundary.
@@ -27,7 +39,7 @@ This roadmap describes product direction, not a promise of dates or outcomes. Pr
 - Improve fixed encouragement, reporting, moderation, successful-repayment recognition, and anti-gaming rules before adding richer community interaction.
 - Test invitation and starlight rewards only after anti-abuse controls prove that rewards encourage meaningful first use rather than empty registrations.
 
-中文重点：先做与真实数据彻底隔离的免注册演示，再逐步开放匿名统计、更多语言、数据长出的建筑社区、可信资源和邀请奖励；所有功能都必须先通过样本门槛、审核和防作弊检查。
+中文重点：继续优化已上线的免注册试玩和本机计划示例，再逐步完善匿名统计、更多语言、数据长出的建筑社区、可信资源和邀请奖励；所有功能都必须先通过样本门槛、审核和防作弊检查。
 
 ## Later · 达到真实使用规模后
 
@@ -51,4 +63,5 @@ This roadmap describes product direction, not a promise of dates or outcomes. Pr
 - Use this repository's Issues for reproducible bugs, accessibility problems, translation proposals, or privacy-safe feature proposals.
 - Never include a real name, password, recovery code, bank information, creditor account, exact personal debt, income, identity document, or private AI conversation in a public Issue.
 
-Roadmap status: public beta planning, last updated 2026-08-03.
+Roadmap status: 3D city public beta, last updated 2026-09-07.
+

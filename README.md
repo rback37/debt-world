@@ -1,13 +1,31 @@
 # Debt World · 上岸星球
 
-> A shared, walkable world for honest debt journeys.  
-> 一个会随着真实匿名数据不断生长的债务世界。
+> A 3D city for real debt journeys—not another highlight reel.  
+> 可以遨游的赛博城市，让真实的负担与下一步都有地方安放。
 
-[Live beta](https://www.debtworld.org/en?src=githubreadme) · [23-second demo](#walk-the-world-in-23-seconds--23-秒看懂上岸星球) · [10-second no-signup example](#see-the-value-in-10-seconds--10-秒先看结果) · [Roadmap](ROADMAP.md) · [Public build log](https://github.com/rback37/debt-world/issues/1) · [Contribute](CONTRIBUTING.md) · [Safety](https://www.debtworld.org/en/safety)
+[**Explore the 3D city — no signup**](https://www.debtworld.org/en/city?src=githubreadme) · [**中文试玩**](https://www.debtworld.org/city?src=githubreadme) · [Build a private repayment plan](https://www.debtworld.org/en?src=githubreadme) · [September 7 build log](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md) · [Help shape the beta](https://github.com/rback37/debt-world/issues/1)
 
-## Walk the world in 23 seconds · 23 秒看懂上岸星球
+## Now live: a city you can walk and fly through
 
-![Debt World 23-second walkthrough](./debt-world-walkthrough.gif)
+The new city is an interactive WebGL experience, not a concept render. Walk at street level, fly above the skyline, or travel straight to a district. Explore it before creating an account.
+
+- **Nine themed districts:** a repayment beacon, cash-flow exchange, home quarter, credit arcade, learning dome, new-start works, echo plaza, shore harbour, and starlight gardens.
+- **A plan beneath the scenery:** after sign-in, districts open the existing debt records, income/expense view, repayment history, and anonymous community.
+- **Progress grounded in life:** the beacon reads recorded repayment progress. Flying, exploring, or receiving encouragement never reduces a balance or makes a bank payment.
+- **A world with room to grow:** shared walkers, approved stories, and published community builds are spaced around an expanding outer promenade. Scenery is not counted as people.
+- **More ways to explore:** WASD/arrows, drag-to-look, zoom, Space to inspect, a district directory, and touch controls. A lightweight classic map remains available in the signed-in world.
+
+中文：上岸星球已升级为真正可以步行、飞行、点选和传送的 3D 赛博城市。房贷、信用卡、学贷、现金流、还款与匿名故事各有自己的街区。**先免注册逛城市，再决定是否创建长期还款计划。** 探索不等于还款，星光不等于金钱；只有用户记录现实中实际发生的还款，相关进度才会改变。
+
+The public city preview is scenery-only: it does not fetch account records, upload debt entries, or manufacture users. Exact personal balances appear only in your private account view. Chinese and English are available; broader device and network feedback is welcome.
+
+[Latest build log and feedback guide](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md) · [Eight launch-message angles](launch-kit/cyber-city/MESSAGE_VARIANTS_2026-09-07.md) · [Roadmap](ROADMAP.md) · [Safety](https://www.debtworld.org/en/safety)
+
+---
+
+## Earlier 2D walkthrough · 早期 2D 版本回顾
+
+![Earlier 2D Debt World walkthrough](./debt-world-walkthrough.gif)
 
 > Actual product capture. Every visible walker uses system demo data. No real user debt, income, account identity, or private AI conversation is shown.
 >
@@ -100,3 +118,4 @@ This public repository is the project’s product-and-community home. Production
 目前正在寻找产品、游戏化、无障碍、隐私、审核、消费者保护、翻译方向的协作者，也欢迎不牺牲用户隐私、不把负债用户变成销售线索的早期支持、赠款或融资合作。
 
 公开测试已经开放，无需邀请码：[进入上岸星球](https://www.debtworld.org/?src=githubreadme)。
+
