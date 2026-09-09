@@ -1,9 +1,30 @@
 # Debt World · 上岸星球
 
-> A 3D city for real debt journeys—not another highlight reel.  
-> 可以遨游的赛博城市，让真实的负担与下一步都有地方安放。
+> See your next repayment step—not another highlight reel.  
+> 先看清下一笔怎么还，再进入一个不用假装富有的世界。
 
-[**Explore the 3D city — no signup**](https://www.debtworld.org/en/city?src=githubreadme) · [**中文试玩**](https://www.debtworld.org/city?src=githubreadme) · [Build a private repayment plan](https://www.debtworld.org/en?src=githubreadme) · [September 7 build log](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md) · [Help shape the beta](https://github.com/rback37/debt-world/issues/1)
+[**Try a fictional repayment example — no signup**](https://www.debtworld.org/en?src=githubreadme) · [**中文：先看虚构示例**](https://www.debtworld.org/?src=githubreadme)
+
+## Start with one useful task · 先解决一件小事
+
+If you have several debts or different repayment dates, start with **See a fictional example**. See how a plan brings debt entries, the next due date, and monthly cash flow together—without entering your finances or creating an account. If it feels useful, you can decide whether to create a continuing private plan.
+
+中文：如果你有多笔欠款、几个还款日，先用虚构例子看看“欠哪些、最近该处理什么、这个月放不放得下”。不用先填真实债务，也不用先注册；觉得有帮助，再决定是否保存自己的长期计划。
+
+**Prefer exploring or building?**
+
+- [Explore the 3D city](https://www.debtworld.org/en/city?src=githubreadme) · [中文城市](https://www.debtworld.org/city?src=githubreadme)
+- [Preview a community build — no signup](https://www.debtworld.org/en/city?workshop=1&src=githubreadme) · [中文共建工坊](https://www.debtworld.org/city?workshop=1&src=githubreadme)
+
+The workshop lets you combine five environments, five themes, and five accent colors. Previewing is temporary; submitting a build requires an account and explicit public-content consent. Only approved builds enter the shared world. No debt information is required for the design preview.
+
+中文：工坊支持五种环境、五种主题和五种配色。免注册预览是临时草稿；提交需要账号与公开内容确认，审核通过后才会进入大世界。试玩设计不需要提供债务资料。
+
+**One useful observation is enough:** where did you first hesitate, and what did you expect? Criticism is welcome; no signup, positive review, or personal story is required to try the preview. GitHub feedback itself requires a GitHub account.
+
+[Share one observation](https://github.com/rback37/debt-world/issues/1) · [Help test mobile navigation](https://github.com/rback37/debt-world/issues/7) · [Latest city build log](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md)
+
+Do not post exact finances, passwords, account details, or private AI conversations. Progress is self-reported; exploring or receiving encouragement does not make a payment.
 
 ## Now live: a city you can walk and fly through
 
@@ -126,3 +147,4 @@ This public repository is the project’s product-and-community home. Production
 目前正在寻找产品、游戏化、无障碍、隐私、审核、消费者保护、翻译方向的协作者，也欢迎不牺牲用户隐私、不把负债用户变成销售线索的早期支持、赠款或融资合作。
 
 公开测试已经开放，无需邀请码：[进入上岸星球](https://www.debtworld.org/?src=githubreadme)。
+
