@@ -22,9 +22,22 @@ The workshop lets you combine five environments, five themes, and five accent co
 
 **One useful observation is enough:** where did you first hesitate, and what did you expect? Criticism is welcome; no signup, positive review, or personal story is required to try the preview. GitHub feedback itself requires a GitHub account.
 
-[Share one observation](https://github.com/rback37/debt-world/issues/1) · [Help test mobile navigation](https://github.com/rback37/debt-world/issues/7) · [Latest city build log](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md)
+[Share one observation](https://github.com/rback37/debt-world/issues/1) · [Help test mobile navigation](https://github.com/rback37/debt-world/issues/7) · [September 7 city build log](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md)
 
 Do not post exact finances, passwords, account details, or private AI conversations. Progress is self-reported; exploring or receiving encouragement does not make a payment.
+
+## September 14 update: a clearer next step inside the city
+
+The published city now includes an optional **three-stop discovery trail** below the scene. Open it, choose a stop, and use **District details & tool entry** to read a short set of organizing prompts. Nine districts each have three prompts in Chinese and English. No amount needs to be entered, and reading them creates no repayment record.
+
+- **Look closer:** three suspended skyways, a rooftop conservatory, folded ribbons, exposed trusses and an orbital balcony add architectural detail. The elevated skyways are scenery to inspect in Fly mode, not walkable elevated surfaces.
+- **Read without crowding:** larger scene-label text and screen-space avoidance keep cards clear of navigation and movement controls. Full district names remain in the directory and detail panel.
+- **Build from a prompt:** the workshop adds three optional design briefs. Choosing one changes only model/theme/light presets; guest previews remain temporary. Publication still needs an account, explicit consent and moderation.
+- **Keep real progress separate:** the trail has no rewards, does not certify repayment and does not change balances. Organizing prompts are not personalized financial or legal advice.
+
+中文：9 月 14 日更新加入可跳过的三站探索路线、九个街区共 27 条整理提示、空中连廊与建筑细节，以及更清晰的标签避让。城市下方打开探索路线，即可查看街区与工具入口。共建工坊新增三组设计灵感；试玩仍是临时草稿，提交仍需登录、确认和审核。探索和阅读不会被算作还款。
+
+Desktop and mobile-width preview checks passed before publication; this is not a claim that every phone, network, login or production transaction has been tested.
 
 ## Now live: a city you can walk and fly through
 
@@ -48,7 +61,7 @@ Try the city for three minutes, then tell us **the first confusing, slow, or use
 
 试玩不需要注册；在 GitHub 提交反馈需要 GitHub 账号。只留一个具体体验就可以：哪里卡顿、哪个按钮看不懂，或哪个地方真的有帮助。**此处反馈公开，请勿附个人财务、账号或私人对话。**
 
-[Latest build log and feedback guide](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md) · [Eight launch-message angles](launch-kit/cyber-city/MESSAGE_VARIANTS_2026-09-07.md) · [Roadmap](ROADMAP.md) · [Safety](https://www.debtworld.org/en/safety)
+[September 7 build log and feedback guide](launch-kit/cyber-city/BUILD_LOG_2026-09-07.md) · [Eight launch-message angles](launch-kit/cyber-city/MESSAGE_VARIANTS_2026-09-07.md) · [Roadmap](ROADMAP.md) · [Safety](https://www.debtworld.org/en/safety)
 
 ---
 
@@ -147,4 +160,3 @@ This public repository is the project’s product-and-community home. Production
 目前正在寻找产品、游戏化、无障碍、隐私、审核、消费者保护、翻译方向的协作者，也欢迎不牺牲用户隐私、不把负债用户变成销售线索的早期支持、赠款或融资合作。
 
 公开测试已经开放，无需邀请码：[进入上岸星球](https://www.debtworld.org/?src=githubreadme)。
-
