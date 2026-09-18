@@ -15,20 +15,30 @@ lint, or test commands on `main`.
   income, private AI conversation, or screenshot showing personal browser or
   account information.
 
-## 1. Clone or update the repository
+## 1. Fork, clone, and stay updated
+
+Outside contributors work from a fork — you don't need write access here.
 
 Run this once:
 
+1. Press **Fork** on https://github.com/rback37/debt-world (your copy lives at `https://github.com/YOU/debt-world`).
+2. Clone your fork as `origin` and register this repository as `upstream`:
+
 ```sh
-git clone https://github.com/rback37/debt-world.git
+git clone https://github.com/YOU/debt-world.git
 cd debt-world
+git remote add upstream https://github.com/rback37/debt-world.git
+git remote -v
 ```
 
-Before every new contribution, update your local copy:
+You should see your fork as `origin` (fetch + push) and `rback37/debt-world` as `upstream` (fetch).
+
+Before every new contribution, sync from `upstream` and push the update to your fork:
 
 ```sh
 git switch main
-git pull origin main
+git pull upstream main
+git push origin main
 ```
 
 Windows note: PowerShell uses these same Git commands. If your system cannot run
@@ -101,16 +111,16 @@ If any answer is uncertain, remove the content before continuing.
 
 ## 5. Commit and open a focused pull request
 
-Commit with a short, specific message:
+Commit with a short, specific message, then push the branch to your fork (`origin` — never to `upstream` directly):
 
 ```sh
 git add SPANISH_STARTER_GLOSSARY.md
 git commit -m "docs: clarify glossary example"
-git push origin docs/glossary-wording
+git push -u origin docs/glossary-wording
 ```
 
 Then open the pull request link printed by Git, or choose **Compare & pull
-request** on GitHub. Use the repository's pull-request template and explain:
+request** on GitHub. Make sure the PR targets `rback37/debt-world:main` from `YOU/debt-world:docs/glossary-wording`. Use the repository's pull-request template and explain:
 
 1. What documentation problem you fixed.
 2. How you checked links, images, and the rendered wording.
